@@ -18,6 +18,7 @@ import {
 } from "@/lib/flare";
 import { getFlareLiveSnapshot } from "@/lib/flareLive";
 import VaultActionsPanel from "@/components/VaultActionsPanel";
+import VaultCompanionsPanel from "@/components/VaultCompanionsPanel";
 
 const AUDIT_ROWS = [
   ["Principal accounting", "100% separated", "contract invariant"],
@@ -91,6 +92,8 @@ export default async function DashboardPage() {
       </section>
 
       <VaultActionsPanel />
+
+      <VaultCompanionsPanel />
 
       <section className="mt-6 rounded-lg border border-white/10 bg-[var(--ls-surface)] p-6">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start">

@@ -12,6 +12,7 @@ Readable milestone commits:
 6. `Integrate FXRP vault with FTSO pricing`
 7. `Surface live Flare FAssets data`
 8. `Deploy LumenShield contracts on Coston2`
+9. `Add Privy Coston2 wallet actions`
 
 ## Flare Requirements Mapping
 
@@ -28,6 +29,7 @@ Evidence:
 - Dashboard reads public Coston2 data through `src/lib/flareLive.ts`.
 - Live read evidence includes `AssetManagerFXRP`, FXRP token address, FXRP lot size, `FtsoV2`, and XRP/USD.
 - Dashboard includes Privy wallet connection, Coston2 switching, FXRP approval, and live `deposit(uint256)` calls to the deployed vault.
+- Dashboard includes a vault companion layer that reads connected-wallet `principalBalance` and `yieldBudget` from the deployed vault.
 - Solidity vault enforces principal/yield separation for an FXRP/FAsset-style ERC-20.
 - `FlareFtsoPriceOracle` resolves `FtsoV2` through Flare Contract Registry.
 
@@ -82,7 +84,7 @@ Deployment workflow:
 Routes:
 
 - `/`: Flare-native landing page
-- `/app`: Coston2 vault dashboard with Privy wallet actions
+- `/app`: Coston2 vault dashboard with Privy wallet actions and vault companion progression
 - `/app/shields`: yield-only shield products
 - `/app/badges`: judge evidence page
 - `/app/leaderboard`: judging/readiness board
@@ -114,6 +116,12 @@ compiled successfully
 
 ## Design Evidence
 
+Gamification:
+
+- `src/components/VaultCompanionsPanel.tsx` renders a Codex Pets inspired growth layer.
+- Public Codex Pets art assets are stored as `public/pets-codex-icon.png` and `public/pets-codex-pack.png`.
+- Growth stage, level, and vitality derive from the same Coston2 vault reads used by the transaction dashboard.
+
 Tastemaker files:
 
 - `.tastemaker/style-lock.md`
@@ -136,7 +144,6 @@ Motion audit:
 ## Known Gaps
 
 - No live FDC attestation verification yet.
-- No hosted demo URL yet.
 - Dependency audit currently reports inherited low, high, and critical findings after adding Flare/viem dependencies.
 - Privy and wallet connector dependencies increase the browser bundle size for `/app`.
 
@@ -152,6 +159,7 @@ Use this checklist before final submission wording is locked.
 - [x] README states current implementation boundaries.
 - [x] App performs live Coston2 FAssets and FTSOv2 reads.
 - [x] App lets judges connect with Privy and submit real Coston2 FXRP approval/deposit transactions.
+- [x] App shows vault companion progression from connected-wallet Coston2 vault reads.
 - [x] Evidence docs avoid live FDC, FCC, or deployed-vault claims without proof.
 
 ### Coston2 Deployment Checks
@@ -168,7 +176,7 @@ Use this checklist before final submission wording is locked.
 
 ### Submission Evidence Checks
 
-- [ ] Add hosted demo URL if available.
+- [x] Add hosted demo URL if available.
 - [ ] Add screenshots or video walkthrough if available.
 - [x] Confirm final public copy says Coston2-deployed only after live Coston2 deployment is evidenced.
 - [x] Confirm final public copy treats FTSOv2 as live and FDC/FCC as roadmap unless implemented.

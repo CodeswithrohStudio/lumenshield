@@ -14,6 +14,7 @@
   <img alt="Chain ID" src="https://img.shields.io/badge/chain%20id-114-2F8073?style=flat-square" />
   <img alt="Contracts" src="https://img.shields.io/badge/contracts-deployed-43E298?style=flat-square" />
   <img alt="Wallet" src="https://img.shields.io/badge/wallet-Privy-6C5CE7?style=flat-square" />
+  <img alt="Gamification" src="https://img.shields.io/badge/vault%20pets-live-F7C948?style=flat-square" />
   <img alt="License" src="https://img.shields.io/badge/license-MIT-white?style=flat-square" />
 </p>
 
@@ -92,6 +93,7 @@ Most DeFi products ask users to accept principal risk before they can access ups
 
 - **Principal lane:** user FXRP/FAsset principal is custodied by the vault and tracked as `principalBalance`.
 - **Yield lane:** earned yield is tracked as `yieldBudget` and is the only budget allowed into shield positions.
+- **Companion lane:** a Codex Pets inspired vault companion levels up from the connected wallet's Coston2 principal and yield reads.
 
 If a shield wins, yield budget grows. If a shield loses, the loss settles against the yield stake and cannot touch principal accounting.
 
@@ -104,12 +106,15 @@ If a shield wins, yield budget grows. If a shield loses, the loss settles agains
 | Flare Contract Registry | Adapter resolves `FtsoV2`; app resolves `AssetManagerFXRP` and `FtsoV2`. |
 | FTSOv2 | Vault adapter reads XRP/USD entry price and rejects stale prices. |
 | Privy | Judges can connect wallets, switch to Coston2, approve FXRP, and deposit to the live vault. |
+| Vault companions | Gamified growth layer reads deployed `principalBalance` and `yieldBudget` for the connected wallet. |
 | FDC | Roadmap boundary for future external payment or proof flows. |
 | FCC | Roadmap boundary for future private risk-profile scoring. |
 
 The dashboard performs live read-only Coston2 calls for `AssetManagerFXRP`, the FXRP token, FXRP lot size, `FtsoV2`, XRP/USD, and the deployed LumenShield vault.
 
 The dashboard also includes a real Privy-powered transaction panel. A judge can request C2FLR and FXRP from the [official Flare faucet](https://faucet.flare.network/), connect with Privy, approve the deployed vault as FXRP spender, and submit a real `deposit(uint256)` transaction on Coston2.
+
+The dashboard includes a vault companion layer using public artwork from [Codex Pets](https://codex-pets.net/). The companion starts in preview mode, bonds after a real vault deposit, then evolves through Hatch, Spark, Guard, and Mythic stages based on the wallet's Coston2 vault principal.
 
 ## Architecture
 
@@ -186,6 +191,7 @@ Latest local verification:
 | `npm run build` | successful |
 | Live Coston2 read | AssetManagerFXRP, FXRP, lot size, FtsoV2, XRP/USD, vault owner, vault asset, vault oracle |
 | Privy panel | Connect wallet, switch Coston2, approve FXRP, deposit to vault |
+| Vault companions | Rendered on `/app`; stage and vitality derive from connected wallet vault reads |
 
 Foundry test coverage includes:
 
