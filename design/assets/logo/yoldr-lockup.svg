@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 56" fill="none" aria-hidden="true">
+  <!-- Mark: vault (principal, whole, stays home) + a comet already departed (yield, adventuring) -->
+  <circle cx="21" cy="34" r="15.5" fill="#ffffff" />
+  <path
+    d="M37,21 Q40,16.5 42.5,13.5 L44.5,15 Q41,19 37,21 Z"
+    fill="#e8702a"
+  />
+  <circle cx="47" cy="9" r="6" fill="#e8702a" />
+  <!-- Wordmark: Playfair Display italic, matching every other "Yoldr" instance in the app -->
+  <text
+    x="66" y="40"
+    font-family="'Playfair Display', serif"
+    font-style="italic"
+    font-weight="400"
+    font-size="34"
+    fill="#ffffff"
+  >Yoldr</text>
+</svg>
