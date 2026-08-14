@@ -1,23 +1,18 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.25;
 
-/// @notice Placeholder for a Flare FTSO-style price oracle adapter.
-/// @dev The MVP vault does not claim live oracle integration. Production code
-/// should adapt the current Flare contracts for Coston2/mainnet explicitly.
-interface IFlarePriceOracle {
-    function latestPrice(bytes32 symbol) external view returns (uint256 price, uint64 updatedAt);
+interface IERC20 {
+    function transfer(address to, uint256 amount) external returns (bool);
+    function transferFrom(address from, address to, uint256 amount) external returns (bool);
 }
 
-/// @notice Placeholder for an FAssets or external yield source adapter.
-/// @dev Yield is credited by the owner in this MVP so tests can prove principal
-/// isolation without pretending to integrate a live yield protocol.
-interface IFAssetYieldSource {
-    function realizedYield(address user) external view returns (uint256 amount);
+interface IShieldPriceOracle {
+    function latestPrice(bytes21 feedId) external view returns (uint256 value, int8 decimals, uint64 timestamp);
 }
 
-/// @notice Minimal Coston2-oriented vault for principal-protected shield positions.
-/// @dev Deposits and yield are denominated in native testnet FLR units. A shield
-/// can only be funded from yieldBudget, never from principalBalance.
+/// @notice FXRP/FAsset vault for principal-protected shield positions on Flare.
+/// @dev Principal and yield are denominated in the configured ERC-20 asset.
+/// Shields spend yield only; principal can be withdrawn even after shield losses.
 contract LumenShieldVault {
     enum ShieldStatus {
         None,
@@ -27,15 +22,20 @@ contract LumenShieldVault {
 
     struct ShieldPosition {
         address user;
-        bytes32 market;
+        bytes21 feedId;
         uint256 stake;
+        uint256 entryPrice;
+        int8 entryPriceDecimals;
+        uint64 entryPriceTimestamp;
         int256 pnl;
         ShieldStatus status;
     }
 
     address public immutable owner;
-    IFlarePriceOracle public priceOracle;
-    IFAssetYieldSource public yieldSource;
+    IERC20 public immutable asset;
+    string public assetSymbol;
+    IShieldPriceOracle public priceOracle;
+    uint64 public maxPriceAge;
 
     uint256 public nextShieldId = 1;
 
@@ -44,13 +44,16 @@ contract LumenShieldVault {
     mapping(address => uint256) public totalYieldEarned;
     mapping(uint256 => ShieldPosition) public shieldPositions;
 
-    event Deposited(address indexed user, uint256 amount);
-    event YieldCredited(address indexed user, uint256 amount, bool funded);
+    event Deposited(address indexed user, address indexed asset, uint256 amount);
+    event YieldCredited(address indexed user, address indexed asset, uint256 amount, bool funded);
     event ShieldOpened(
         address indexed user,
         uint256 indexed shieldId,
-        bytes32 indexed market,
-        uint256 stake
+        bytes21 indexed feedId,
+        uint256 stake,
+        uint256 entryPrice,
+        int8 entryPriceDecimals,
+        uint64 entryPriceTimestamp
     );
     event ShieldSettled(
         address indexed user,
@@ -58,71 +61,80 @@ contract LumenShieldVault {
         int256 pnl,
         uint256 returnedToYieldBudget
     );
-    event PrincipalWithdrawn(address indexed user, uint256 amount);
-    event PriceOracleSet(address indexed oracle);
-    event YieldSourceSet(address indexed yieldSource);
+    event PrincipalWithdrawn(address indexed user, address indexed asset, uint256 amount);
+    event PriceOracleSet(address indexed oracle, uint64 maxPriceAge);
 
     error NotOwner();
     error ZeroAmount();
+    error ZeroAddress();
+    error AssetTransferFailed();
     error InsufficientYieldBudget(uint256 requested, uint256 available);
     error InsufficientPrincipal(uint256 requested, uint256 available);
     error ShieldNotOpen(uint256 shieldId);
-    error NotShieldOwner(uint256 shieldId, address caller);
+    error OracleNotConfigured();
+    error StalePrice(bytes21 feedId, uint64 updatedAt, uint64 maxAge);
+    error InvalidPrice(bytes21 feedId);
 
     modifier onlyOwner() {
         if (msg.sender != owner) revert NotOwner();
         _;
     }
 
-    constructor(address initialOwner) {
+    constructor(address initialOwner, IERC20 asset_, string memory assetSymbol_) {
+        if (address(asset_) == address(0)) revert ZeroAddress();
+
         owner = initialOwner == address(0) ? msg.sender : initialOwner;
+        asset = asset_;
+        assetSymbol = assetSymbol_;
     }
 
-    receive() external payable {
-        deposit();
-    }
+    function setPriceOracle(IShieldPriceOracle oracle, uint64 maxAgeSeconds) external onlyOwner {
+        if (address(oracle) == address(0)) revert ZeroAddress();
+        if (maxAgeSeconds == 0) revert ZeroAmount();
 
-    function setPriceOracle(IFlarePriceOracle oracle) external onlyOwner {
         priceOracle = oracle;
-        emit PriceOracleSet(address(oracle));
+        maxPriceAge = maxAgeSeconds;
+
+        emit PriceOracleSet(address(oracle), maxAgeSeconds);
     }
 
-    function setYieldSource(IFAssetYieldSource source) external onlyOwner {
-        yieldSource = source;
-        emit YieldSourceSet(address(source));
+    function deposit(uint256 amount) external {
+        if (amount == 0) revert ZeroAmount();
+
+        _pullAsset(msg.sender, amount);
+        principalBalance[msg.sender] += amount;
+
+        emit Deposited(msg.sender, address(asset), amount);
     }
 
-    function deposit() public payable {
-        if (msg.value == 0) revert ZeroAmount();
+    /// @notice Admin credit for realized asset yield transferred into the vault.
+    function creditYield(address user, uint256 amount) external onlyOwner {
+        if (user == address(0)) revert ZeroAddress();
+        if (amount == 0) revert ZeroAmount();
 
-        principalBalance[msg.sender] += msg.value;
+        _pullAsset(msg.sender, amount);
+        yieldBudget[user] += amount;
+        totalYieldEarned[user] += amount;
 
-        emit Deposited(msg.sender, msg.value);
-    }
-
-    /// @notice Admin credit for realized yield that is transferred into the vault.
-    function creditYield(address user) external payable onlyOwner {
-        if (msg.value == 0) revert ZeroAmount();
-
-        yieldBudget[user] += msg.value;
-        totalYieldEarned[user] += msg.value;
-
-        emit YieldCredited(user, msg.value, true);
+        emit YieldCredited(user, address(asset), amount, true);
     }
 
     /// @notice Testnet/demo-only accrual hook for simulated yield.
-    /// @dev This is intentionally owner-gated and marked unfunded in the event.
+    /// @dev Kept separate from funded credits so evidence can distinguish demo state.
     function accrueSimulatedYield(address user, uint256 amount) external onlyOwner {
+        if (user == address(0)) revert ZeroAddress();
         if (amount == 0) revert ZeroAmount();
 
         yieldBudget[user] += amount;
         totalYieldEarned[user] += amount;
 
-        emit YieldCredited(user, amount, false);
+        emit YieldCredited(user, address(asset), amount, false);
     }
 
-    function openShield(bytes32 market, uint256 stake) external returns (uint256 shieldId) {
+    function openShield(bytes21 feedId, uint256 stake) external returns (uint256 shieldId) {
         if (stake == 0) revert ZeroAmount();
+
+        (uint256 price, int8 decimals, uint64 timestamp) = _readFreshPrice(feedId);
 
         uint256 available = yieldBudget[msg.sender];
         if (stake > available) revert InsufficientYieldBudget(stake, available);
@@ -131,17 +143,19 @@ contract LumenShieldVault {
         shieldId = nextShieldId++;
         shieldPositions[shieldId] = ShieldPosition({
             user: msg.sender,
-            market: market,
+            feedId: feedId,
             stake: stake,
+            entryPrice: price,
+            entryPriceDecimals: decimals,
+            entryPriceTimestamp: timestamp,
             pnl: 0,
             status: ShieldStatus.Open
         });
 
-        emit ShieldOpened(msg.sender, shieldId, market, stake);
+        emit ShieldOpened(msg.sender, shieldId, feedId, stake, price, decimals, timestamp);
     }
 
-    /// @notice Settles a shield. Negative pnl consumes shield stake first and
-    /// cannot touch principal because principal is tracked separately.
+    /// @notice Settles a shield. Losses consume shield stake and never principal.
     function settleShield(uint256 shieldId, int256 pnl) external onlyOwner {
         ShieldPosition storage position = shieldPositions[shieldId];
         if (position.status != ShieldStatus.Open) revert ShieldNotOpen(shieldId);
@@ -171,10 +185,27 @@ contract LumenShieldVault {
         if (amount > available) revert InsufficientPrincipal(amount, available);
 
         principalBalance[msg.sender] = available - amount;
+        _pushAsset(msg.sender, amount);
 
-        (bool sent,) = msg.sender.call{value: amount}("");
-        require(sent, "PRINCIPAL_WITHDRAW_FAILED");
+        emit PrincipalWithdrawn(msg.sender, address(asset), amount);
+    }
 
-        emit PrincipalWithdrawn(msg.sender, amount);
+    function _readFreshPrice(bytes21 feedId) private view returns (uint256 price, int8 decimals, uint64 timestamp) {
+        IShieldPriceOracle oracle = priceOracle;
+        if (address(oracle) == address(0)) revert OracleNotConfigured();
+
+        (price, decimals, timestamp) = oracle.latestPrice(feedId);
+        if (price == 0) revert InvalidPrice(feedId);
+        if (timestamp + maxPriceAge < block.timestamp) {
+            revert StalePrice(feedId, timestamp, maxPriceAge);
+        }
+    }
+
+    function _pullAsset(address from, uint256 amount) private {
+        if (!asset.transferFrom(from, address(this), amount)) revert AssetTransferFailed();
+    }
+
+    function _pushAsset(address to, uint256 amount) private {
+        if (!asset.transfer(to, amount)) revert AssetTransferFailed();
     }
 }
