@@ -98,11 +98,11 @@
    - Optionally run one tiny testnet deposit and record the receipt.
 
 4. Update public evidence.
-   - Fill the deployment section in `docs/COSTON2_DEPLOYMENT.md`.
-   - Update `docs/EVIDENCE.md`.
-   - Add `NEXT_PUBLIC_LUMENSHIELD_VAULT_ADDRESS` to the deployed app environment only after the contract is verified.
+   - Deployment evidence is filled in `docs/COSTON2_DEPLOYMENT.md`.
+   - `docs/EVIDENCE.md` includes deployed addresses, transactions, and smoke checks.
+   - `NEXT_PUBLIC_LUMENSHIELD_VAULT_ADDRESS` is set after verified deployment.
 
 5. Lock final submission claims.
-   - Say "Coston2-ready" until deployment evidence exists.
-   - Say "Coston2-deployed" only after explorer evidence is recorded.
-   - Keep FTSOv2 and FDC as roadmap/boundary items unless live reads or attestations are implemented and evidenced.
+   - Say "Coston2-deployed" with explorer evidence recorded.
+   - Treat FTSOv2 as live read-only integration.
+   - Keep FDC and FCC as roadmap/boundary items unless implemented and evidenced.
