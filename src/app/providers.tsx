@@ -18,12 +18,19 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       config={{
         defaultChain: coston2Chain,
         supportedChains: [coston2Chain],
-        loginMethods: ["wallet", "email"],
+        loginMethods: ["wallet"],
         appearance: {
           theme: "dark",
           accentColor: "#E2832E",
           logo: "/lumenshield-mark.svg",
           walletChainType: "ethereum-only",
+          walletList: [
+            "metamask",
+            "coinbase_wallet",
+            "rainbow",
+            "detected_ethereum_wallets",
+            "wallet_connect_qr",
+          ],
         },
         embeddedWallets: {
           ethereum: {
