@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="public/og-image.png" alt="LumenShield preview" width="100%" />
-</p>
-
 <h1 align="center">LumenShield</h1>
 
 <p align="center">
