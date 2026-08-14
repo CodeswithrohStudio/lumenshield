@@ -13,6 +13,7 @@
   <img alt="Network" src="https://img.shields.io/badge/network-Coston2-E2832E?style=flat-square" />
   <img alt="Chain ID" src="https://img.shields.io/badge/chain%20id-114-2F8073?style=flat-square" />
   <img alt="Contracts" src="https://img.shields.io/badge/contracts-deployed-43E298?style=flat-square" />
+  <img alt="Wallet" src="https://img.shields.io/badge/wallet-Privy-6C5CE7?style=flat-square" />
   <img alt="License" src="https://img.shields.io/badge/license-MIT-white?style=flat-square" />
 </p>
 
@@ -102,10 +103,13 @@ If a shield wins, yield budget grows. If a shield loses, the loss settles agains
 | FAssets / FXRP | Vault is configured for the documented Coston2 FXRP ERC-20. |
 | Flare Contract Registry | Adapter resolves `FtsoV2`; app resolves `AssetManagerFXRP` and `FtsoV2`. |
 | FTSOv2 | Vault adapter reads XRP/USD entry price and rejects stale prices. |
+| Privy | Judges can connect wallets, switch to Coston2, approve FXRP, and deposit to the live vault. |
 | FDC | Roadmap boundary for future external payment or proof flows. |
 | FCC | Roadmap boundary for future private risk-profile scoring. |
 
 The dashboard performs live read-only Coston2 calls for `AssetManagerFXRP`, the FXRP token, FXRP lot size, `FtsoV2`, XRP/USD, and the deployed LumenShield vault.
+
+The dashboard also includes a real Privy-powered transaction panel. A judge can request C2FLR and FXRP from the [official Flare faucet](https://faucet.flare.network/), connect with Privy, approve the deployed vault as FXRP spender, and submit a real `deposit(uint256)` transaction on Coston2.
 
 ## Architecture
 
@@ -164,6 +168,7 @@ NEXT_PUBLIC_FLARE_RPC_URL=https://coston2-api.flare.network/ext/C/rpc
 NEXT_PUBLIC_FLARE_EXPLORER_URL=https://coston2-explorer.flare.network
 NEXT_PUBLIC_FLARE_CONTRACT_REGISTRY=0xaD67FE66660Fb8dFE9d6b1b4240d8650e30F6019
 NEXT_PUBLIC_COSTON2_FXRP_ADDRESS=0x0b6A3645c240605887a5532109323A3E12273dc7
+NEXT_PUBLIC_PRIVY_APP_ID=cml5e131s01tbjn0cl00eormz
 NEXT_PUBLIC_LUMENSHIELD_VAULT_ADDRESS=0x41365634247e7E8CE4d5109057c6356b52930479
 NEXT_PUBLIC_LUMENSHIELD_ORACLE_ADDRESS=0x46930F19B28921cee5b608a6571b65D36502B925
 ```
@@ -180,6 +185,7 @@ Latest local verification:
 | `npm run lint` | clean |
 | `npm run build` | successful |
 | Live Coston2 read | AssetManagerFXRP, FXRP, lot size, FtsoV2, XRP/USD, vault owner, vault asset, vault oracle |
+| Privy panel | Connect wallet, switch Coston2, approve FXRP, deposit to vault |
 
 Foundry test coverage includes:
 
@@ -236,7 +242,7 @@ The current claim is specific: LumenShield is a Coston2-deployed FXRP/FAsset vau
 ## Roadmap
 
 - Add wallet-driven deposit and withdraw flows against the deployed Coston2 vault.
-- Add optional FXRP test deposit walkthrough with a disposable wallet.
+- Add withdraw flow and shield-opening flow after testnet deposits are exercised.
 - Add FDC-backed proof flow for external asset/payment state.
 - Add FCC-backed private risk scoring for shield eligibility.
 - Add hosted demo URL and walkthrough video for final submission.

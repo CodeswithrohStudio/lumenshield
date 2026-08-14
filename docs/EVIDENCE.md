@@ -27,6 +27,7 @@ Evidence:
 - Deployed FTSO adapter: `0x46930F19B28921cee5b608a6571b65D36502B925`
 - Dashboard reads public Coston2 data through `src/lib/flareLive.ts`.
 - Live read evidence includes `AssetManagerFXRP`, FXRP token address, FXRP lot size, `FtsoV2`, and XRP/USD.
+- Dashboard includes Privy wallet connection, Coston2 switching, FXRP approval, and live `deposit(uint256)` calls to the deployed vault.
 - Solidity vault enforces principal/yield separation for an FXRP/FAsset-style ERC-20.
 - `FlareFtsoPriceOracle` resolves `FtsoV2` through Flare Contract Registry.
 
@@ -81,7 +82,7 @@ Deployment workflow:
 Routes:
 
 - `/`: Flare-native landing page
-- `/app`: Coston2 vault dashboard
+- `/app`: Coston2 vault dashboard with Privy wallet actions
 - `/app/shields`: yield-only shield products
 - `/app/badges`: judge evidence page
 - `/app/leaderboard`: judging/readiness board
@@ -137,6 +138,7 @@ Motion audit:
 - No live FDC attestation verification yet.
 - No hosted demo URL yet.
 - Dependency audit currently reports inherited low, high, and critical findings after adding Flare/viem dependencies.
+- Privy and wallet connector dependencies increase the browser bundle size for `/app`.
 
 ## Verification Checklist
 
@@ -149,6 +151,7 @@ Use this checklist before final submission wording is locked.
 - [x] `npm run build` completes cleanly.
 - [x] README states current implementation boundaries.
 - [x] App performs live Coston2 FAssets and FTSOv2 reads.
+- [x] App lets judges connect with Privy and submit real Coston2 FXRP approval/deposit transactions.
 - [x] Evidence docs avoid live FDC, FCC, or deployed-vault claims without proof.
 
 ### Coston2 Deployment Checks

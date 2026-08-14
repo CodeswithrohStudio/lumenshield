@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Providers from "@/app/providers";
 import "./globals.css";
 
 const BASE_URL = "https://lumenshield.vercel.app";
@@ -99,7 +100,9 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="LumenShield" />
       </head>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

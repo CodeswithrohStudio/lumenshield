@@ -109,6 +109,15 @@ cast call "$VAULT_ADDRESS" "principalBalance(address)(uint256)" "$LUMENSHIELD_OW
 
 Only run the funded flow with a disposable testnet wallet that has C2FLR for gas and FXRP for deposit.
 
+The same flow is available from the app dashboard:
+
+1. Open `https://lumenshield.vercel.app/app`.
+2. Connect a wallet through Privy.
+3. Use the official Flare faucet for C2FLR and FXRP.
+4. Switch to Coston2 when prompted.
+5. Approve FXRP for the deployed vault.
+6. Deposit FXRP into `0x41365634247e7E8CE4d5109057c6356b52930479`.
+
 ## Recorded Deployment Evidence
 
 - Deployer address: `0xE20D41E77bF1d2121E4bc50411e4523300b72B9a`
