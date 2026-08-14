@@ -7,7 +7,6 @@ import {IERC20, LumenShieldVault} from "../contracts/LumenShieldVault.sol";
 interface Vm {
     function envUint(string calldata name) external view returns (uint256);
     function envOr(string calldata name, address defaultValue) external view returns (address);
-    function envOr(string calldata name, uint64 defaultValue) external view returns (uint64);
     function startBroadcast(uint256 privateKey) external;
     function stopBroadcast() external;
 }
@@ -22,13 +21,12 @@ contract DeployLumenShieldVault {
         uint256 deployerPrivateKey = vm.envUint("DEPLOYER_PRIVATE_KEY");
         address owner = vm.envOr("LUMENSHIELD_OWNER", address(0));
         address fxrp = vm.envOr("COSTON2_FXRP_ADDRESS", COSTON2_FXRP);
-        uint64 maxPriceAge = vm.envOr("LUMENSHIELD_MAX_PRICE_AGE", DEFAULT_MAX_PRICE_AGE);
 
         vm.startBroadcast(deployerPrivateKey);
 
         oracle = new FlareFtsoPriceOracle();
         vault = new LumenShieldVault(owner, IERC20(fxrp), "FXRP");
-        vault.setPriceOracle(oracle, maxPriceAge);
+        vault.setPriceOracle(oracle, DEFAULT_MAX_PRICE_AGE);
 
         vm.stopBroadcast();
     }

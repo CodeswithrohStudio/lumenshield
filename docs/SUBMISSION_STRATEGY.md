@@ -30,13 +30,12 @@ Crypto holders who want upside exposure through DeFi but are unwilling to risk t
 - Solidity contracts.
 - FXRP/FAsset-centered product model.
 - Flare evidence panel with live Coston2 reads.
-- Coston2 deployment workflow.
+- Coston2 deployment workflow and deployed vault evidence.
 - FTSOv2 adapter and dashboard read path.
 - FDC/FCC integration boundaries documented honestly.
 
 Not yet evidenced:
 
-- Live Coston2 contract deployment.
 - Live FDC attestation verification.
 - Live FCC private compute.
 
@@ -48,7 +47,7 @@ Not yet evidenced:
 4. Inspect the FXRP vault and FTSO adapter.
 5. Inspect contracts and tests.
 6. Review `docs/COSTON2_DEPLOYMENT.md`.
-7. Verify Coston2 deployment details only if address and transaction evidence have been added.
+7. Verify Coston2 deployment details from the recorded explorer links and smoke checks.
 
 ## Differentiation
 
@@ -63,18 +62,16 @@ Most DeFi products ask users to accept principal risk. LumenShield makes the ris
 
 ## Final Copy Guardrails
 
-Use these phrases until deployment evidence exists:
+Use these phrases:
 
 - "Coston2-oriented prototype"
-- "Coston2-ready FXRP vault module"
-- "deployment workflow included"
+- "Coston2-deployed FXRP vault module"
+- "deployment workflow and explorer evidence included"
 - "live read-only FAssets and FTSOv2 data"
 - "FDC and FCC integration boundaries documented"
 
 Avoid these phrases until actual evidence exists:
 
-- "live Coston2 deployment"
-- "deployed contract"
 - "verifies FDC attestations"
 - "built with FCC"
 - "production-ready principal protection"

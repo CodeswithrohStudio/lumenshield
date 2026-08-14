@@ -55,6 +55,11 @@ forge test
 
 ## Coston2 Deployment
 
-Deployment is prepared but not yet evidenced in this repository because no funded `DEPLOYER_PRIVATE_KEY` is available in the current shell.
+Deployment is evidenced on Coston2:
 
-Use `docs/COSTON2_DEPLOYMENT.md` for the broadcast command and only update submission materials with a live address after the deployment transaction, explorer links, and smoke checks are recorded.
+- Oracle: `0x46930F19B28921cee5b608a6571b65D36502B925`
+- Vault: `0x41365634247e7E8CE4d5109057c6356b52930479`
+- Owner: `0xE20D41E77bF1d2121E4bc50411e4523300b72B9a`
+- Asset: `0x0b6A3645c240605887a5532109323A3E12273dc7`
+
+Use `docs/COSTON2_DEPLOYMENT.md` for transaction hashes, explorer links, and smoke-check output.

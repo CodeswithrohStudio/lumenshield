@@ -1,6 +1,6 @@
 # Coston2 Deployment Workflow
 
-This document is the deployment runbook for the LumenShield hackathon prototype. It is written as an evidence checklist, not as a claim that deployment has already happened.
+This document is the deployment runbook and evidence checklist for the LumenShield hackathon prototype.
 
 ## Current Status
 
@@ -10,9 +10,11 @@ This document is the deployment runbook for the LumenShield hackathon prototype.
 - Explorer: `https://coston2-explorer.flare.network`
 - Contracts to deploy: `contracts/FlareFtsoPriceOracle.sol:FlareFtsoPriceOracle` and `contracts/LumenShieldVault.sol:LumenShieldVault`
 - FXRP asset: `0x0b6A3645c240605887a5532109323A3E12273dc7`
-- Deployment status: prepared, not yet evidenced in this repo
+- Oracle address: `0x46930F19B28921cee5b608a6571b65D36502B925`
+- Vault address: `0x41365634247e7E8CE4d5109057c6356b52930479`
+- Deployment status: deployed and smoke-checked on Coston2
 
-Do not add a contract address, explorer link, or deployed-contract claim until the transaction hash and address are recorded below.
+The deployment evidence is recorded below. Future redeploys should update all addresses and transaction hashes in one commit.
 
 ## Prerequisites
 
@@ -52,7 +54,6 @@ export COSTON2_RPC_URL="https://coston2-api.flare.network/ext/C/rpc"
 export DEPLOYER_PRIVATE_KEY="<local-secret>"
 export LUMENSHIELD_OWNER="<owner-address>"
 export COSTON2_FXRP_ADDRESS="0x0b6A3645c240605887a5532109323A3E12273dc7"
-export LUMENSHIELD_MAX_PRICE_AGE="180"
 ```
 
 Deploy:
@@ -63,7 +64,7 @@ forge script script/DeployLumenShieldVault.s.sol:DeployLumenShieldVault \
   --broadcast
 ```
 
-Record the deployed oracle address, vault address, and transaction hashes before making any submission claim.
+Record the deployed oracle address, vault address, and transaction hashes after every redeploy.
 
 ## Post-Deployment Smoke Checks
 
@@ -108,27 +109,35 @@ cast call "$VAULT_ADDRESS" "principalBalance(address)(uint256)" "$LUMENSHIELD_OW
 
 Only run the funded flow with a disposable testnet wallet that has C2FLR for gas and FXRP for deposit.
 
-## Evidence To Record
+## Recorded Deployment Evidence
 
-After deployment, update this section and `docs/EVIDENCE.md`.
+- Deployer address: `0xE20D41E77bF1d2121E4bc50411e4523300b72B9a`
+- Owner address: `0xE20D41E77bF1d2121E4bc50411e4523300b72B9a`
+- Oracle address: `0x46930F19B28921cee5b608a6571b65D36502B925`
+- Vault address: `0x41365634247e7E8CE4d5109057c6356b52930479`
+- Oracle deployment transaction: `0x672fba6004a5e3e9af0589bf91cd9bf5cb534694694984d7354f694f0963d715`
+- Vault deployment transaction: `0x93c8f99a45de1d91195dad5995b09584f9bc063a899c8925f17b456ac232bd3f`
+- Oracle configuration transaction: `0x731470c4203de2a0b7f319765f65511de3f36ecc95a4e3b983074c9b8183cc0d`
+- Oracle explorer URL: `https://coston2-explorer.flare.network/address/0x46930F19B28921cee5b608a6571b65D36502B925`
+- Vault explorer URL: `https://coston2-explorer.flare.network/address/0x41365634247e7E8CE4d5109057c6356b52930479`
+- Oracle deployment URL: `https://coston2-explorer.flare.network/tx/0x672fba6004a5e3e9af0589bf91cd9bf5cb534694694984d7354f694f0963d715`
+- Vault deployment URL: `https://coston2-explorer.flare.network/tx/0x93c8f99a45de1d91195dad5995b09584f9bc063a899c8925f17b456ac232bd3f`
+- Oracle configuration URL: `https://coston2-explorer.flare.network/tx/0x731470c4203de2a0b7f319765f65511de3f36ecc95a4e3b983074c9b8183cc0d`
+- App env updated with `NEXT_PUBLIC_LUMENSHIELD_VAULT_ADDRESS`: yes
+- App env updated with `NEXT_PUBLIC_LUMENSHIELD_ORACLE_ADDRESS`: yes
 
-- Deployer address: `TODO`
-- Owner address: `TODO`
-- Oracle address: `TODO`
-- Vault address: `TODO`
-- Deployment transaction hash: `TODO`
-- Explorer address URL: `TODO`
-- Explorer transaction URL: `TODO`
-- Smoke-check command outputs: `TODO`
-- App env updated with `NEXT_PUBLIC_LUMENSHIELD_VAULT_ADDRESS`: `TODO`
-- App env updated with `NEXT_PUBLIC_LUMENSHIELD_ORACLE_ADDRESS`: `TODO`
+Smoke-check outputs:
+
+```text
+cast chain-id -> 114
+owner() -> 0xE20D41E77bF1d2121E4bc50411e4523300b72B9a
+asset() -> 0x0b6A3645c240605887a5532109323A3E12273dc7
+priceOracle() -> 0x46930F19B28921cee5b608a6571b65D36502B925
+maxPriceAge() -> 180
+nextShieldId() -> 1
+latestPrice(XRP/USD) -> 1010592, 6, 1786671693
+```
 
 ## Submission Boundary
-
-Until the evidence above is filled in, the honest submission wording is:
-
-> LumenShield includes a Coston2-ready Solidity vault and deployment workflow, but this repository does not yet contain evidence of a live Coston2 deployment.
-
-After the evidence is filled in, the wording can become:
 
 > LumenShield includes a Coston2-deployed vault at the recorded address, with smoke-check outputs and explorer links included in the evidence docs.

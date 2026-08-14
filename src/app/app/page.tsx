@@ -10,8 +10,8 @@ import {
 import {
   COSTON2,
   DEMO_VAULT,
-  DEMO_WALLET,
   FLARE_EVIDENCE,
+  LUMENSHIELD_VAULT_ADDRESS,
   SHIELD_PRODUCTS,
   explorerAddress,
   truncateAddress,
@@ -47,13 +47,13 @@ export default async function DashboardPage() {
           </p>
         </div>
         <a
-          href={explorerAddress(DEMO_WALLET)}
+          href={explorerAddress(LUMENSHIELD_VAULT_ADDRESS)}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[var(--ls-surface)] px-4 py-2 text-sm text-white/72"
         >
           <Wallet size={15} />
-          {truncateAddress(DEMO_WALLET)}
+          {truncateAddress(LUMENSHIELD_VAULT_ADDRESS)}
           <ArrowUpRight size={14} />
         </a>
       </header>
@@ -104,10 +104,15 @@ export default async function DashboardPage() {
         </div>
         {live.ok ? (
           <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            <LiveReadCard label="LumenShield vault" value={live.vaultAddress ?? "Unavailable"} />
             <LiveReadCard label="FXRP token" value={live.fxrpAddress ?? "Unavailable"} />
             <LiveReadCard label="AssetManagerFXRP" value={live.assetManagerFXRP ?? "Unavailable"} />
+            <LiveReadCard label="Vault oracle" value={live.vaultOracle ?? "Unavailable"} />
             <LiveReadCard label="FXRP lot size" value={`${live.lotSizeFXRP ?? "Unknown"} FXRP`} />
             <LiveReadCard label="XRP/USD FTSOv2" value={`$${live.xrpUsd ?? "Unknown"}`} />
+            <LiveReadCard label="Next shield ID" value={live.nextShieldId ?? "Unavailable"} />
+            <LiveReadCard label="Vault owner" value={live.vaultOwner ?? "Unavailable"} />
+            <LiveReadCard label="Vault asset" value={live.vaultAsset ?? "Unavailable"} />
           </div>
         ) : (
           <p className="mt-5 rounded-md border border-white/10 bg-black/20 p-4 text-sm text-[var(--ls-muted)]">

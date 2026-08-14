@@ -10,6 +10,12 @@ export const COSTON2 = {
 export const FLARE_CONTRACT_REGISTRY = "0xaD67FE66660Fb8dFE9d6b1b4240d8650e30F6019";
 export const COSTON2_FXRP_ADDRESS = "0x0b6A3645c240605887a5532109323A3E12273dc7";
 export const XRP_USD_FEED_ID = "0x015852502f55534400000000000000000000000000";
+export const LUMENSHIELD_ORACLE_ADDRESS =
+  process.env.NEXT_PUBLIC_LUMENSHIELD_ORACLE_ADDRESS ??
+  "0x46930F19B28921cee5b608a6571b65D36502B925";
+export const LUMENSHIELD_VAULT_ADDRESS =
+  process.env.NEXT_PUBLIC_LUMENSHIELD_VAULT_ADDRESS ??
+  "0x41365634247e7E8CE4d5109057c6356b52930479";
 
 export const DEMO_WALLET = "0x8f2A1a0F0f7f84680f2D7Db84b9965dD4ed1f7E1";
 
@@ -95,4 +101,8 @@ export function truncateAddress(address: string) {
 
 export function explorerAddress(address: string) {
   return `${COSTON2.explorerUrl}/address/${address}`;
+}
+
+export function explorerTx(hash: string) {
+  return `${COSTON2.explorerUrl}/tx/${hash}`;
 }

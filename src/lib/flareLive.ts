@@ -3,7 +3,12 @@ import {
   iFlareContractRegistryAbi,
 } from "@flarenetwork/flare-wagmi-periphery-package/contracts/coston2";
 import { createPublicClient, defineChain, formatUnits, http, type Address } from "viem";
-import { COSTON2, FLARE_CONTRACT_REGISTRY, XRP_USD_FEED_ID } from "@/lib/flare";
+import {
+  COSTON2,
+  FLARE_CONTRACT_REGISTRY,
+  LUMENSHIELD_VAULT_ADDRESS,
+  XRP_USD_FEED_ID,
+} from "@/lib/flare";
 
 const coston2Chain = defineChain({
   id: COSTON2.chainId,
@@ -45,6 +50,37 @@ const ftsoV2ReadAbi = [
   },
 ] as const;
 
+const lumenShieldVaultReadAbi = [
+  {
+    type: "function",
+    name: "owner",
+    stateMutability: "view",
+    inputs: [],
+    outputs: [{ type: "address" }],
+  },
+  {
+    type: "function",
+    name: "asset",
+    stateMutability: "view",
+    inputs: [],
+    outputs: [{ type: "address" }],
+  },
+  {
+    type: "function",
+    name: "priceOracle",
+    stateMutability: "view",
+    inputs: [],
+    outputs: [{ type: "address" }],
+  },
+  {
+    type: "function",
+    name: "nextShieldId",
+    stateMutability: "view",
+    inputs: [],
+    outputs: [{ type: "uint256" }],
+  },
+] as const;
+
 export type FlareLiveSnapshot = {
   ok: boolean;
   blockNumber?: string;
@@ -55,11 +91,17 @@ export type FlareLiveSnapshot = {
   ftsoV2?: Address;
   xrpUsd?: string;
   priceTimestamp?: string;
+  vaultAddress?: Address;
+  vaultOwner?: Address;
+  vaultAsset?: Address;
+  vaultOracle?: Address;
+  nextShieldId?: string;
   error?: string;
 };
 
 export async function getFlareLiveSnapshot(): Promise<FlareLiveSnapshot> {
   try {
+    const vaultAddress = LUMENSHIELD_VAULT_ADDRESS as Address;
     const [blockNumber, assetManagerFXRP, ftsoV2] = await Promise.all([
       publicClient.getBlockNumber(),
       publicClient.readContract({
@@ -95,6 +137,29 @@ export async function getFlareLiveSnapshot(): Promise<FlareLiveSnapshot> {
       }),
     ]);
 
+    const [vaultOwner, vaultAsset, vaultOracle, nextShieldId] = await Promise.all([
+      publicClient.readContract({
+        address: vaultAddress,
+        abi: lumenShieldVaultReadAbi,
+        functionName: "owner",
+      }),
+      publicClient.readContract({
+        address: vaultAddress,
+        abi: lumenShieldVaultReadAbi,
+        functionName: "asset",
+      }),
+      publicClient.readContract({
+        address: vaultAddress,
+        abi: lumenShieldVaultReadAbi,
+        functionName: "priceOracle",
+      }),
+      publicClient.readContract({
+        address: vaultAddress,
+        abi: lumenShieldVaultReadAbi,
+        functionName: "nextShieldId",
+      }),
+    ]);
+
     const assetDecimals = Number(settings.assetDecimals);
     const priceValue = price[0];
     const priceDecimals = Number(price[1]);
@@ -109,6 +174,11 @@ export async function getFlareLiveSnapshot(): Promise<FlareLiveSnapshot> {
       ftsoV2,
       xrpUsd: formatOracleValue(priceValue, priceDecimals),
       priceTimestamp: price[2].toString(),
+      vaultAddress,
+      vaultOwner,
+      vaultAsset,
+      vaultOracle,
+      nextShieldId: nextShieldId.toString(),
     };
   } catch (error) {
     return {

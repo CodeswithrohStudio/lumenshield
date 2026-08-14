@@ -12,6 +12,8 @@ LumenShield is a Flare-native port of the Yoldr product concept: users keep prin
 - Chain ID: `114`
 - RPC: `https://coston2-api.flare.network/ext/C/rpc`
 - Explorer: `https://coston2-explorer.flare.network`
+- Vault: `0x41365634247e7E8CE4d5109057c6356b52930479`
+- FTSO adapter: `0x46930F19B28921cee5b608a6571b65D36502B925`
 
 ## Product Thesis
 
@@ -76,7 +78,7 @@ npm run build
 
 Coston2 deployment instructions are in `docs/COSTON2_DEPLOYMENT.md`.
 
-Current deployment status: this repo does not yet contain evidence of a live Coston2 deployment. Add a contract address, deployment transaction, explorer links, and smoke-check outputs before claiming a deployed vault in final submission materials.
+Current deployment status: deployed and smoke-checked on Coston2. Address, transaction, and smoke-check evidence is recorded in `docs/COSTON2_DEPLOYMENT.md`.
 
 ## Verification Snapshot
 
