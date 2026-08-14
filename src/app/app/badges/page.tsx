@@ -4,7 +4,7 @@ import { BadgeCheck, FileCode2 } from "lucide-react";
 import { COSTON2, FLARE_EVIDENCE } from "@/lib/flare";
 
 const BUILD_EVIDENCE = [
-  ["Original baseline", "Yoldr on Flow imported as commit 1"],
+  ["Initial baseline", "Consumer vault prototype imported as commit 1"],
   ["New product plan", "LumenShield Flare product plan in docs/"],
   ["Brand system", "Tastemaker lock, reference board, LumenShield mark"],
   ["Contract proof", "Foundry vault tests for principal/yield separation"],

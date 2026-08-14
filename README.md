@@ -19,6 +19,8 @@
 <p align="center">
   <a href="#live-coston2-deployment">Contracts</a>
   ·
+  <a href="https://lumenshield.vercel.app">Live Demo</a>
+  ·
   <a href="#quickstart">Quickstart</a>
   ·
   <a href="#verification">Verification</a>
@@ -30,7 +32,7 @@
 
 ## Overview
 
-LumenShield is a Flare-native port of the Yoldr product concept. It lets users keep FXRP/FAsset principal isolated in vault accounting while only earned yield can be used as risk capital for higher-upside shield positions.
+LumenShield is a Flare-native structured vault prototype. It lets users keep FXRP/FAsset principal isolated in vault accounting while only earned yield can be used as risk capital for higher-upside shield positions.
 
 The hackathon focus is **Flare Summer Signal, Bounty 1: Interoperable Asset Products**. The build uses Coston2, FXRP/FAssets, Flare Contract Registry, and FTSOv2. Flare Confidential Compute is documented as a future private risk-scoring extension, not claimed in the current build.
 
@@ -57,6 +59,7 @@ The hackathon focus is **Flare Summer Signal, Bounty 1: Interoperable Asset Prod
 | Chain ID | `114` |
 | RPC | `https://coston2-api.flare.network/ext/C/rpc` |
 | Explorer | `https://coston2-explorer.flare.network` |
+| Live demo | [`https://lumenshield.vercel.app`](https://lumenshield.vercel.app) |
 | FXRP asset | [`0x0b6A3645c240605887a5532109323A3E12273dc7`](https://coston2-explorer.flare.network/address/0x0b6A3645c240605887a5532109323A3E12273dc7) |
 | LumenShield vault | [`0x41365634247e7E8CE4d5109057c6356b52930479`](https://coston2-explorer.flare.network/address/0x41365634247e7E8CE4d5109057c6356b52930479) |
 | FTSO adapter | [`0x46930F19B28921cee5b608a6571b65D36502B925`](https://coston2-explorer.flare.network/address/0x46930F19B28921cee5b608a6571b65D36502B925) |

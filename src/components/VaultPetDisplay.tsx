@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { PetState } from "@/store/useYoldrStore";
+import { PetState } from "@/store/useLumenShieldStore";
 
 const PET_CONFIG: Record<string, { emoji: string; color: string; glowColor: string }> = {
   Griffin: { emoji: "🦁", color: "from-yellow-400 to-amber-600", glowColor: "rgba(245,158,11,0.4)" },

@@ -8,7 +8,7 @@ Do not select Bounty 2 unless Flare Confidential Compute is implemented and demo
 
 ## Submission Description
 
-LumenShield is a Flare-native port of Yoldr: a principal-protected DeFi vault where users deposit supported Flare assets, keep their principal protected in vault accounting, and use only earned yield as the risk budget for higher-upside shield positions.
+LumenShield is a Flare-native principal-protected DeFi vault where users deposit supported Flare assets, keep their principal protected in vault accounting, and use only earned yield as the risk budget for higher-upside shield positions.
 
 ## Target User
 
@@ -16,9 +16,9 @@ Crypto holders who want upside exposure through DeFi but are unwilling to risk t
 
 ## What Existed Before
 
-- Yoldr on Flow.
-- Flow wallet/FCL integration.
-- Cadence contracts.
+- Earlier consumer vault prototype.
+- Earlier non-Flare wallet integration.
+- Earlier non-Flare contracts.
 - Consumer vault UX.
 - Principal/yield separation concept.
 - Shield position and badge/pet experience.

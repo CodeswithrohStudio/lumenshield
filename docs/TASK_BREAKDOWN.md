@@ -13,20 +13,20 @@
 - Use Tastemaker build workflow.
 - Create `.tastemaker/reference-board.md`.
 - Create `.tastemaker/style-lock.md`.
-- Update logo/wordmark assets from Yoldr to LumenShield.
+- Update logo/wordmark assets to LumenShield.
 - Update favicon, manifest, metadata, and OG image.
 
 ## Repository
 
-- Import Yoldr source as baseline.
+- Import the source baseline.
 - Initialize clean git history.
 - Add product docs before implementation.
 - Keep commits milestone-shaped and readable.
-- Avoid rewriting or hiding original Yoldr lineage.
+- Keep the commit history transparent while presenting the current product as LumenShield.
 
 ## Frontend
 
-- Rename app surface from Yoldr to LumenShield.
+- Rename app surface to LumenShield.
 - Replace Flow wallet language with Flare/Coston2 language.
 - Update landing flow:
   - Landing

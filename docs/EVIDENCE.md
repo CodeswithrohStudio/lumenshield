@@ -4,7 +4,7 @@
 
 Readable milestone commits:
 
-1. `Import Yoldr product baseline for Flare port`
+1. `Import product baseline for Flare port`
 2. `Define LumenShield Flare product plan`
 3. `Establish LumenShield brand system`
 4. `Add Flare vault contracts`

@@ -268,7 +268,7 @@ export default function LandingPage() {
             className="hero-anim hero-fade pointer-events-none mt-7 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg"
             style={{ animationDelay: "0.62s" }}
           >
-            A Flare-native port of Yoldr where FXRP principal is isolated in
+            A Flare-native vault where FXRP principal is isolated in
             vault accounting and only earned yield can fund shield positions.
           </p>
 
@@ -450,12 +450,11 @@ export default function LandingPage() {
                 Evidence
               </p>
               <h2 className="font-unbounded text-3xl font-semibold leading-tight">
-                Yoldr lineage is visible. Flare work is visible too.
+                Deployed contracts, live reads, and boundaries are visible.
               </h2>
               <p className="mt-5 text-base leading-7 text-white/58">
-                The repo history separates the imported Flow baseline from the
-                Flare product plan, brand system, Solidity contracts, app shell,
-                and submission evidence.
+                The repo history shows the Flare product plan, brand system,
+                Solidity contracts, Coston2 deployment, and submission evidence.
               </p>
               <button
                 onClick={openApp}
@@ -466,7 +465,7 @@ export default function LandingPage() {
             </div>
             <div className="grid gap-3">
               {[
-                ["Foundry tests", "6 passed, 0 failed"],
+                ["Foundry tests", "7 passed, 0 failed"],
                 ["Next build", "compiled successfully"],
                 ["Primary bounty", "Interoperable Asset Products"],
                 ["Claims boundary", "FCC and FDC not claimed until built"],

@@ -6,7 +6,7 @@
 
 **One-liner:** Principal-protected FXRP and FAsset vaults on Flare where principal stays shielded while earned yield funds upside exposure.
 
-**Origin:** LumenShield ports the Yoldr idea from Flow to Flare. The original Yoldr promise remains: users should not need to risk their principal to participate in higher-upside DeFi. The new product must make Flare the core path, not a deployment label.
+**Origin:** LumenShield turns a consumer vault concept into a Flare-native product. The core promise is simple: users should not need to risk their principal to participate in higher-upside DeFi. The product must make Flare the core path, not a deployment label.
 
 ## Hackathon Fit
 
@@ -117,8 +117,8 @@ Content:
 ## Milestones and Commits
 
 1. **Baseline import**
-   - Import original Yoldr code into new repo.
-   - Commit: `Import Yoldr product baseline for Flare port`
+   - Import the initial consumer vault baseline into the new repo.
+   - Commit: `Import product baseline for Flare port`
 
 2. **Product specification**
    - Add product plan, submission plan, and task breakdown.
@@ -126,7 +126,7 @@ Content:
 
 3. **Brand lock**
    - Create Tastemaker style lock for LumenShield.
-   - Preserve the best Yoldr visual ideas while making the brand Flare-native.
+   - Preserve the strongest vault visuals while making the brand Flare-native.
    - Commit: `Establish LumenShield brand system`
 
 4. **Flare app shell**

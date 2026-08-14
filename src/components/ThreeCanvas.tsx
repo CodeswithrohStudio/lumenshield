@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-// ── Yoldr shield orbital configs ─────────────────────────────
+// ── LumenShield orbital configs ─────────────────────────────
 const SHIELDS = [
   { asset: "GOLD", color: 0xf59e0b, r: 3.8, speed: 0.38, tilt: 0.22, phase: 0 },
   { asset: "BTC",  color: 0xf97316, r: 5.0, speed: 0.26, tilt: -0.42, phase: Math.PI * 0.55 },

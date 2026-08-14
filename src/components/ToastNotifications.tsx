@@ -1,9 +1,9 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
-import { useYoldrStore } from "@/store/useYoldrStore";
+import { useLumenShieldStore } from "@/store/useLumenShieldStore";
 
 export default function ToastNotifications() {
-  const { toasts, removeToast } = useYoldrStore();
+  const { toasts, removeToast } = useLumenShieldStore();
 
   return (
     <div className="fixed top-4 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-2 w-full max-w-sm px-4 pointer-events-none">

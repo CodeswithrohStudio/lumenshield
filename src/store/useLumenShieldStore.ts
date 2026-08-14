@@ -52,7 +52,7 @@ export interface Toast {
   xpAmount?: number;
 }
 
-interface YoldrStore {
+interface LumenShieldStore {
   // User state
   user: { addr: string; loggedIn: boolean } | null;
   vault: VaultState | null;
@@ -80,7 +80,7 @@ interface YoldrStore {
   addXP: (amount: number, reason: string) => void;
 }
 
-export const useYoldrStore = create<YoldrStore>((set, get) => ({
+export const useLumenShieldStore = create<LumenShieldStore>((set, get) => ({
   user: null,
   vault: null,
   pet: null,
