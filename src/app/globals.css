@@ -89,19 +89,11 @@ h1, h2, h3, .font-unbounded {
   50% { border-color: #fbbf24; box-shadow: 0 0 20px #fbbf24, 0 0 40px #f97316; }
 }
 
-.animate-float { animation: float 3s ease-in-out infinite; }
-.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
-.animate-fire { animation: fire 1.5s ease-in-out infinite; }
+.animate-float { animation: float 3s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+.animate-fire { animation: fire 1.5s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
 .animate-spin-slow { animation: spin-slow 8s linear infinite; }
-.rare-badge { animation: rare-border 2s ease-in-out infinite; }
-
-.shimmer-text {
-  background: linear-gradient(90deg, #F59E0B, #FBBF24, #F59E0B);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 3s linear infinite;
-}
+.rare-badge { animation: rare-border 2s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
 
 .page-container {
   max-width: 480px;
@@ -111,12 +103,11 @@ h1, h2, h3, .font-unbounded {
 }
 
 .card-hover {
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
 }
 .card-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
 }
 
 .scrollbar-hide {

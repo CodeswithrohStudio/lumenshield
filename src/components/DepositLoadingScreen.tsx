@@ -9,7 +9,7 @@ const STAGES = [
     id: "wallet",
     duration: 1800,
     title: "Reaching into your wallet…",
-    subtitle: "Authorising the FLOW withdrawal",
+    subtitle: "Authorising the FXRP deposit",
     color: "#60A5FA",
     icon: (
       <svg viewBox="0 0 64 64" fill="none" className="w-16 h-16" stroke="#60A5FA" strokeWidth="2">
@@ -23,8 +23,8 @@ const STAGES = [
   {
     id: "flow",
     duration: 1800,
-    title: "Your FLOW is on the move…",
-    subtitle: "Sending principal to the Yoldr vault",
+    title: "Your FXRP is on the move…",
+    subtitle: "Sending principal to the LumenShield vault",
     color: "#34D399",
     icon: (
       <svg viewBox="0 0 64 64" fill="none" className="w-16 h-16">
@@ -86,8 +86,8 @@ const STAGES = [
   {
     id: "chain",
     duration: 99999, // held until TX confirms
-    title: "Etching into the Flow blockchain…",
-    subtitle: "Block explorer is watching. Almost there.",
+    title: "Etching into Coston2…",
+    subtitle: "Flare explorer is watching. Almost there.",
     color: "#38BDF8",
     icon: (
       <svg viewBox="0 0 64 64" fill="none" className="w-16 h-16" stroke="#38BDF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -182,7 +182,7 @@ export default function DepositLoadingScreen({ show, petType, amount }: DepositL
               className="px-5 py-2 rounded-full border font-mono text-sm font-bold"
               style={{ borderColor: stage.color + "55", color: stage.color, background: stage.color + "14" }}
             >
-              {amount} FLOW → Vault
+              {amount} FXRP → Vault
             </motion.div>
 
             {/* Icon / Animation */}
