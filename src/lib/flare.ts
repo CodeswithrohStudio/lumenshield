@@ -69,7 +69,7 @@ export const SHIELD_PRODUCTS = [
     asset: "ETH/USD",
     leverage: "2x",
     budget: "Yield only",
-    status: "Demo route",
+    status: "Backlog route",
     description:
       "A higher-volatility shield for users who accept yield-budget drawdown.",
   },

@@ -180,7 +180,7 @@ export default function LandingPage() {
           className="hidden rounded-full bg-[var(--ls-accent)] px-6 py-2.5 text-sm font-semibold text-black transition-transform hover:scale-[1.03] active:scale-95 md:flex"
           style={{ boxShadow: `0 8px 24px -8px ${ACCENT}88` }}
         >
-          Launch demo
+          Launch app
         </button>
 
         <button
@@ -219,7 +219,7 @@ export default function LandingPage() {
           onClick={openApp}
           className="mt-auto rounded-full bg-[var(--ls-accent)] px-7 py-3.5 text-base font-semibold text-black"
         >
-          Launch demo
+          Launch app
         </button>
       </div>
 
@@ -281,7 +281,7 @@ export default function LandingPage() {
               className="rounded-full bg-[var(--ls-accent)] px-9 py-4 text-base font-semibold text-black transition-transform hover:scale-[1.04] active:scale-95"
               style={{ boxShadow: `0 16px 44px -10px ${ACCENT}aa` }}
             >
-              Launch Coston2 demo
+              Open Coston2 vault
             </button>
             <button
               onClick={() => handleNav("mechanism")}

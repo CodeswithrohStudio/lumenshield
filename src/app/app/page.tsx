@@ -65,7 +65,7 @@ export default async function DashboardPage() {
           icon={Lock}
           label="Principal protected"
           value={`${DEMO_VAULT.principal.toLocaleString()} ${DEMO_VAULT.asset}`}
-          detail={`$${DEMO_VAULT.usdValue.toLocaleString()} demo valuation`}
+          detail={`$${DEMO_VAULT.usdValue.toLocaleString()} reference valuation`}
         />
         <MetricCard
           icon={Activity}

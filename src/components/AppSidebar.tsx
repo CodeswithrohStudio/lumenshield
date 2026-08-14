@@ -94,7 +94,7 @@ export default function AppSidebar() {
         >
           <GradientAvatar addr={DEMO_WALLET} size={32} />
           <div className="min-w-0 flex-1">
-            <p className="text-[10px] text-white/40">Demo wallet</p>
+            <p className="text-[10px] text-white/40">Judge wallet</p>
             <p className="truncate font-mono text-xs text-white/80">
               {truncateAddress(DEMO_WALLET)}
             </p>
@@ -103,7 +103,7 @@ export default function AppSidebar() {
         </a>
         <button className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-md border border-white/10 py-2 text-xs text-white/45 transition-colors hover:bg-white/[0.05] hover:text-white/70">
           <LogOut size={12} />
-          Demo mode
+          Workbench mode
         </button>
       </div>
     </aside>

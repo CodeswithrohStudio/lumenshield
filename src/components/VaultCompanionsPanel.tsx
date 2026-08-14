@@ -31,7 +31,7 @@ const STAGES = [
   { name: "Hatch", threshold: 0, next: 1, detail: "connect a wallet and make the first FXRP deposit" },
   { name: "Spark", threshold: 1, next: 10, detail: "vault has real Coston2 principal" },
   { name: "Guard", threshold: 10, next: 50, detail: "principal is large enough for stronger shield identity" },
-  { name: "Mythic", threshold: 50, next: 100, detail: "top-tier vault companion state for demo scoring" },
+  { name: "Mythic", threshold: 50, next: 100, detail: "top-tier vault companion state for judge scoring" },
 ];
 
 export default function VaultCompanionsPanel() {
@@ -160,7 +160,7 @@ export default function VaultCompanionsPanel() {
                 <p className="mt-1 text-sm text-[var(--ls-muted)]">
                   {petState.nextStage
                     ? `${formatFxrp(petState.displayPrincipal)} FXRP toward ${petState.nextStage.name}`
-                    : `${formatFxrp(petState.displayPrincipal)} FXRP at top demo stage`}
+                    : `${formatFxrp(petState.displayPrincipal)} FXRP at top vault stage`}
                 </p>
               </div>
               <p className="font-mono text-sm text-[var(--ls-accent)]">{petState.progress}%</p>
