@@ -6,3 +6,7 @@
   choice: REJECTED the shield+dot mark from the prior entry — user feedback: "just a shield is too common... should showcase the brand and its message carefully." Replaced with a solid white vault circle (the principal — whole, anchored, stays home) and a separate orange comet with a tapered trail, clearly departed with a visible gap (the yield — already in motion, adventuring, ascending up-and-right = growth direction). No security/shield iconography anywhere.
   context: explicit user rejection of the prior concept, not just an unprompted pivot. Iterated through 4 rendered versions (touching/attached tail -> gap but stubby tail -> long swooping tapered tail) before landing here, checking 512/32/16px renders each pass.
   status: shipped — kept, pending explicit user feedback on this new concept.
+2026-08-14 | LumenShield brand system | scope: Flare-native port | axis: name + palette + structure
+  choice: selected "LumenShield" with premium/dark Tastemaker palette seed 114, Product Demo / Workbench landing, and a signal-flare mark derived from Yoldr's principal-stays/yield-moves metaphor.
+  context: user asked for a premium new repo and Tastemaker branding for a Flare-native version of Yoldr. The old Yoldr lock is lineage only because the product is now Coston2/FXRP/FAssets-first.
+  status: pending-review — agent-selected for speed; user can still rename before public launch.

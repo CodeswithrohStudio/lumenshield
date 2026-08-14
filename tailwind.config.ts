@@ -9,17 +9,21 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        unbounded: ["Unbounded", "sans-serif"],
+        albert: ["Albert Sans", "sans-serif"],
+        plex: ["IBM Plex Mono", "monospace"],
         orbitron: ["Orbitron", "sans-serif"],
         exo: ["Exo 2", "sans-serif"],
         inter: ["Inter", "sans-serif"],
         playfair: ["Playfair Display", "serif"],
       },
       colors: {
-        primary: "#F59E0B",
-        cta: "#8B5CF6",
-        surface: "#1E293B",
-        "surface-2": "#0F172A",
-        accent: "#e8702a",
+        primary: "#5170cf",
+        cta: "#5170cf",
+        surface: "#14161c",
+        "surface-2": "#090b11",
+        accent: "#e2832e",
+        signal: "#e2832e",
       },
       maxWidth: {
         "480px": "480px",

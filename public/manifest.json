@@ -1,11 +1,11 @@
 {
-  "name": "Yoldr — Yield Protected DeFi",
-  "short_name": "Yoldr",
-  "description": "Your yield goes adventuring. Your principal stays home.",
+  "name": "LumenShield — Principal-Protected FXRP Vaults",
+  "short_name": "LumenShield",
+  "description": "Principal stays shielded. Yield follows the signal.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "background_color": "#090b11",
+  "theme_color": "#090b11",
   "orientation": "portrait",
   "icons": [
     { "src": "/favicon-16.png",      "sizes": "16x16",   "type": "image/png" },

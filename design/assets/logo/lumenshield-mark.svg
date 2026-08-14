@@ -1,0 +1,9 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">LumenShield mark</title>
+  <desc id="desc">A protected principal orb with a separate signal flare crossing its edge.</desc>
+  <rect width="128" height="128" rx="28" fill="#090B11"/>
+  <circle cx="55" cy="72" r="31" fill="#ECF2FE"/>
+  <path d="M81 54C90 43 100 34 112 27C103 42 93 55 82 66C72 76 62 83 50 88C59 78 70 66 81 54Z" fill="#E2832E"/>
+  <circle cx="107" cy="25" r="10" fill="#E2832E"/>
+  <path d="M30 72C30 58.193 41.193 47 55 47C62.335 47 68.932 50.158 73.507 55.188" stroke="#5170CF" stroke-width="7" stroke-linecap="round"/>
+</svg>

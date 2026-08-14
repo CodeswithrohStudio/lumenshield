@@ -1,0 +1,13 @@
+<svg width="360" height="96" viewBox="0 0 360 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">LumenShield lockup</title>
+  <desc id="desc">LumenShield wordmark with protected signal mark.</desc>
+  <g transform="translate(8 8)">
+    <rect width="80" height="80" rx="18" fill="#090B11"/>
+    <circle cx="35" cy="45" r="20" fill="#ECF2FE"/>
+    <path d="M52 33C58 26 65 20 73 16C67 26 60 35 53 42C47 48 40 53 32 56C38 49 45 41 52 33Z" fill="#E2832E"/>
+    <circle cx="72" cy="15" r="7" fill="#E2832E"/>
+    <path d="M19 45C19 36.1634 26.1634 29 35 29C39.6944 29 43.9165 31.0209 46.8445 34.2363" stroke="#5170CF" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <text x="110" y="57" fill="#ECF2FE" font-family="Unbounded, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0">LumenShield</text>
+  <text x="112" y="78" fill="#9AA6BB" font-family="Albert Sans, Arial, sans-serif" font-size="12" font-weight="500" letter-spacing="1.8">PRINCIPAL STAYS. YIELD SIGNALS.</text>
+</svg>

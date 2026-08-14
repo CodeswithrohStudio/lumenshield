@@ -1,3 +1,9 @@
+/* tastemaker · macrostructure: Product Demo / Workbench · mood: premium · page: landing
+ * arc: hook(H2) -> problem(specific principal-risk beat) -> solution(F3) -> how(F4) -> proof(F5+P4) -> close(C2)
+ * nav: N2 · hero: H2 · footer: Ft2 · knobs: hero=split-demo/left-bias/evidence-mockup
+ * palette: seed 114 (premium/dark) · contrast: pass (matrix)
+ * critique: ShowTell 4 · Phil 5 · Hier 4 · Spec 5 · Restr 4 · Var 5 */
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700;800&family=Unbounded:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap');
 
@@ -6,44 +12,52 @@
 @tailwind utilities;
 
 :root {
-  --primary: #F59E0B;
-  --cta: #8B5CF6;
-  --bg: #0F172A;
-  --surface: #1E293B;
-  --text: #F8FAFC;
-  --text-muted: #94A3B8;
+  --ls-bg: #090b11;
+  --ls-surface: #14161c;
+  --ls-primary: #5170cf;
+  --ls-accent: #e2832e;
+  --ls-secondary: #222d48;
+  --ls-border: #202228;
+  --ls-text: #ecf2fe;
+  --ls-muted: #9aa6bb;
+  --primary: #5170cf;
+  --cta: #5170cf;
+  --bg: #090b11;
+  --surface: #14161c;
+  --text: #ecf2fe;
+  --text-muted: #9aa6bb;
 }
 
 html, body {
-  background: #0F172A;
-  color: #F8FAFC;
-  font-family: 'Exo 2', sans-serif;
+  background: #090b11;
+  color: #ecf2fe;
+  font-family: 'Albert Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   height: 100%;
 }
 
-h1, h2, h3, .font-orbitron {
-  font-family: 'Orbitron', sans-serif;
+h1, h2, h3, .font-unbounded {
+  font-family: 'Unbounded', sans-serif;
 }
 
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #0F172A; }
-::-webkit-scrollbar-thumb { background: rgba(245,158,11,0.3); border-radius: 2px; }
+::-webkit-scrollbar-track { background: #090b11; }
+::-webkit-scrollbar-thumb { background: rgba(226,131,46,0.3); border-radius: 2px; }
 
 .glass {
-  background: rgba(30, 41, 59, 0.8);
+  background: rgba(20, 22, 28, 0.82);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.08);
 }
 
 .glass-gold {
-  background: rgba(245, 158, 11, 0.08);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: rgba(226, 131, 46, 0.08);
+  border: 1px solid rgba(226, 131, 46, 0.2);
 }
 
-.glow-gold { box-shadow: 0 0 20px rgba(245,158,11,0.2), 0 0 40px rgba(245,158,11,0.1); }
-.glow-purple { box-shadow: 0 0 20px rgba(139,92,246,0.2); }
+.glow-gold { box-shadow: 0 0 20px rgba(226,131,46,0.2), 0 0 40px rgba(226,131,46,0.1); }
+.glow-purple { box-shadow: 0 0 20px rgba(81,112,207,0.2); }
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }

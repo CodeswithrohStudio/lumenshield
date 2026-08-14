@@ -1,32 +1,31 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-const BASE_URL = "https://yoldr-codeswithrohs-projects.vercel.app";
+const BASE_URL = "https://lumenshield.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
 
   title: {
-    default: "Yoldr — Yield Protected DeFi on Flow",
-    template: "%s | Yoldr",
+    default: "LumenShield — Principal-Protected FXRP Vaults on Flare",
+    template: "%s | LumenShield",
   },
   description:
-    "You Only Lose (the) yield, Really. Deposit FLOW, lock your principal forever safe, and send your daily yield adventuring on leveraged shield positions. Built on Flow blockchain.",
+    "Principal-protected FXRP and FAsset vaults on Flare. Your principal stays shielded while earned yield follows higher-upside signals.",
 
   keywords: [
-    "DeFi", "Flow blockchain", "principal protected", "yield farming",
-    "zero-coupon", "crypto savings", "NFT gamification",
-    "leveraged positions", "FLOW token",
+    "DeFi", "Flare", "FXRP", "FAssets", "principal protected",
+    "FTSO", "Coston2", "crypto savings", "yield vault",
   ],
 
-  authors: [{ name: "Yoldr", url: BASE_URL }],
-  creator: "Yoldr",
-  publisher: "Yoldr",
+  authors: [{ name: "LumenShield", url: BASE_URL }],
+  creator: "LumenShield",
+  publisher: "LumenShield",
 
   // ── Favicon / icons ──────────────────────────────────────────────────────
   icons: {
     icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/lumenshield-mark.svg", type: "image/svg+xml" },
       { url: "/favicon.ico" },
       { url: "/favicon-16.png", sizes: "16x16",  type: "image/png" },
       { url: "/favicon.png",    sizes: "32x32",  type: "image/png" },
@@ -42,16 +41,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: BASE_URL,
-    siteName: "Yoldr",
-    title: "Yoldr — Yield Protected DeFi",
+    siteName: "LumenShield",
+    title: "LumenShield — Principal-Protected FXRP Vaults",
     description:
-      "Your yield goes adventuring. Your principal stays home. Principal-protected leveraged positions on Flow blockchain.",
+      "Your principal stays shielded. Your earned yield follows the signal. Built for Flare Summer Signal on Coston2.",
     images: [
       {
         url: "/og-image.png",
         width: 630,
         height: 630,
-        alt: "Yoldr — Yield Protected DeFi",
+        alt: "LumenShield — Principal-Protected FXRP Vaults",
       },
     ],
     locale: "en_US",
@@ -60,10 +59,8 @@ export const metadata: Metadata = {
   // ── Twitter / X card ─────────────────────────────────────────────────────
   twitter: {
     card: "summary",
-    site: "@yoldrfi",
-    creator: "@yoldrfi",
-    title: "Yoldr — Yield Protected DeFi",
-    description: "Your yield goes adventuring. Your principal stays home. Built on Flow.",
+    title: "LumenShield — Principal-Protected FXRP Vaults",
+    description: "Principal stays shielded. Yield follows the signal. Built on Flare.",
     images: ["/og-image.png"],
   },
 
@@ -87,7 +84,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#000000",
+  themeColor: "#090b11",
 };
 
 export default function RootLayout({
@@ -100,7 +97,7 @@ export default function RootLayout({
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Yoldr" />
+        <meta name="apple-mobile-web-app-title" content="LumenShield" />
       </head>
       <body>{children}</body>
     </html>
