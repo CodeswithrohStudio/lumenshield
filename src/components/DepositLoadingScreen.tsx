@@ -74,7 +74,7 @@ const STAGES = [
     id: "seal",
     duration: 1800,
     title: "Sealing the principal protection…",
-    subtitle: "The bond is mathematically guaranteed",
+    subtitle: "The vault records principal separately",
     color: "#F59E0B",
     icon: (
       <svg viewBox="0 0 64 64" fill="none" className="w-16 h-16" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -289,7 +289,7 @@ export default function DepositLoadingScreen({ show, petType, amount }: DepositL
               transition={{ delay: 1 }}
               className="text-xs text-slate-600 font-mono"
             >
-              ✓ Your principal is guaranteed to return
+              ✓ Your principal stays in separate vault accounting
             </motion.p>
           </motion.div>
         </motion.div>
