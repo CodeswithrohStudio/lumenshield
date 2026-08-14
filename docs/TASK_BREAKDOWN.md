@@ -79,3 +79,30 @@
 - Include contract addresses if deployed.
 - Include known limitations.
 
+## Systematic Next Steps
+
+1. Re-run local verification.
+   - `forge test`
+   - `npm run lint`
+   - `npm run build`
+
+2. Deploy only if local checks pass.
+   - Follow `docs/COSTON2_DEPLOYMENT.md`.
+   - Use a funded Coston2 test wallet.
+   - Record deployer, owner, address, transaction hash, and explorer links.
+
+3. Smoke-check the deployed vault.
+   - Confirm chain ID `114`.
+   - Confirm `owner()` returns the intended owner.
+   - Confirm `nextShieldId()` starts at `1`.
+   - Optionally run one tiny testnet deposit and record the receipt.
+
+4. Update public evidence.
+   - Fill the deployment section in `docs/COSTON2_DEPLOYMENT.md`.
+   - Update `docs/EVIDENCE.md`.
+   - Add `NEXT_PUBLIC_LUMENSHIELD_VAULT_ADDRESS` to the deployed app environment only after the contract is verified.
+
+5. Lock final submission claims.
+   - Say "Coston2-ready" until deployment evidence exists.
+   - Say "Coston2-deployed" only after explorer evidence is recorded.
+   - Keep FTSOv2 and FDC as roadmap/boundary items unless live reads or attestations are implemented and evidenced.

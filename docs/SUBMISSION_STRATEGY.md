@@ -25,15 +25,19 @@ Crypto holders who want upside exposure through DeFi but are unwilling to risk t
 
 ## Newly Built for Flare
 
-To be filled as implementation lands:
-
 - LumenShield brand and repo.
 - Flare/Coston2 app shell.
 - Solidity contracts.
 - FXRP/FAsset-centered product model.
 - Flare evidence panel.
-- Coston2 deployment and transactions.
-- FTSO/FDC integration if implemented.
+- Coston2 deployment workflow.
+- FTSO/FDC integration boundaries documented honestly.
+
+Not yet evidenced:
+
+- Live Coston2 contract deployment.
+- Live FTSOv2 read.
+- Live FDC attestation verification.
 
 ## Judge Path
 
@@ -42,7 +46,8 @@ To be filled as implementation lands:
 3. Connect wallet or use demo mode.
 4. Review dashboard evidence panel.
 5. Inspect contracts and tests.
-6. Verify Coston2 deployment details.
+6. Review `docs/COSTON2_DEPLOYMENT.md`.
+7. Verify Coston2 deployment details only if address and transaction evidence have been added.
 
 ## Differentiation
 
@@ -55,3 +60,19 @@ Most DeFi products ask users to accept principal risk. LumenShield makes the ris
 - FTSO/FDC integration must be accurately represented based on what is actually implemented.
 - Any deployment on Coston2 is testnet evidence, not production readiness.
 
+## Final Copy Guardrails
+
+Use these phrases until deployment evidence exists:
+
+- "Coston2-oriented prototype"
+- "Coston2-ready vault module"
+- "deployment workflow included"
+- "FTSOv2 and FDC integration boundaries documented"
+
+Avoid these phrases until actual evidence exists:
+
+- "live Coston2 deployment"
+- "deployed contract"
+- "uses live FTSO prices"
+- "verifies FDC attestations"
+- "production-ready principal protection"

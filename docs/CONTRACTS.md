@@ -25,3 +25,9 @@ These interfaces are intentionally not wired to mocked production behavior. In t
 ## Tests
 
 Focused Foundry tests cover deposit accounting, funded admin yield credit, simulated yield accrual, opening shields from yield only, failed attempts to spend principal on shields, losing settlement, and principal withdrawal after loss.
+
+## Coston2 Deployment
+
+Deployment is not yet evidenced in this repository. Use `docs/COSTON2_DEPLOYMENT.md` for the Coston2 runbook and only update submission materials with a live address after the deployment transaction, explorer links, and smoke checks are recorded.
+
+The current recommended command path is `forge create contracts/LumenShieldVault.sol:LumenShieldVault` with constructor argument `initialOwner`. The existing `script/DeployLumenShieldVault.s.sol` is a helper deployer contract, not a broadcast-ready Foundry `Script`.

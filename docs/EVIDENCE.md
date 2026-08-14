@@ -59,6 +59,12 @@ forge test
 6 passed; 0 failed; 0 skipped
 ```
 
+Deployment workflow:
+
+- Coston2 runbook: `docs/COSTON2_DEPLOYMENT.md`
+- Current deployment status: not yet evidenced in this repo
+- Required before claiming live deployment: deployed vault address, transaction hash, explorer links, and smoke-check output
+
 ## Frontend Evidence
 
 Routes:
@@ -108,6 +114,37 @@ Motion audit:
 - No live FDC attestation verification yet.
 - No hosted demo URL yet.
 - Dependency audit still reports inherited high-severity findings.
+
+## Verification Checklist
+
+Use this checklist before final submission wording is locked.
+
+### Local Product Checks
+
+- [x] `forge test` passes for principal/yield accounting.
+- [x] `npm run lint` completes cleanly.
+- [x] `npm run build` completes cleanly.
+- [x] README states current implementation boundaries.
+- [x] Evidence docs avoid live FTSO, FDC, or deployed-contract claims without proof.
+
+### Coston2 Deployment Checks
+
+- [ ] Deploy `LumenShieldVault` to Coston2.
+- [ ] Record deployed vault address.
+- [ ] Record deployment transaction hash.
+- [ ] Add Coston2 explorer address and transaction links.
+- [ ] Run `cast chain-id` and confirm `114`.
+- [ ] Run `owner()` and confirm the intended owner address.
+- [ ] Run `nextShieldId()` and confirm fresh contract state.
+- [ ] Optionally run a small testnet deposit with a disposable funded wallet.
+- [ ] Add `NEXT_PUBLIC_LUMENSHIELD_VAULT_ADDRESS` to hosted app environment only after deployment is verified.
+
+### Submission Evidence Checks
+
+- [ ] Add hosted demo URL if available.
+- [ ] Add screenshots or video walkthrough if available.
+- [ ] Confirm final public copy says Coston2-ready unless a live Coston2 deployment is evidenced.
+- [ ] Confirm final public copy says FTSOv2/FDC roadmap or boundary unless live calls are implemented and evidenced.
 
 ## Next Evidence To Add
 

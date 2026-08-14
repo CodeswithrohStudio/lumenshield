@@ -70,6 +70,12 @@ npm run lint
 npm run build
 ```
 
+## Deployment Workflow
+
+Coston2 deployment instructions are in `docs/COSTON2_DEPLOYMENT.md`.
+
+Current deployment status: this repo does not yet contain evidence of a live Coston2 deployment. Add a contract address, deployment transaction, explorer links, and smoke-check outputs before claiming a deployed vault in final submission materials.
+
 ## Verification Snapshot
 
 Latest local verification:
