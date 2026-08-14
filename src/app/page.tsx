@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { usePrivy } from "@privy-io/react-auth";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -121,7 +122,9 @@ function RevealLayer({
 
 export default function LandingPage() {
   const router = useRouter();
+  const { ready, authenticated, login } = usePrivy();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [appLaunchPending, setAppLaunchPending] = useState(false);
   const mouse = useRef({ x: -999, y: -999 });
   const smooth = useRef({ x: -999, y: -999 });
   const rafRef = useRef<number>(0);
@@ -147,7 +150,29 @@ export default function LandingPage() {
     };
   }, []);
 
-  const openApp = useCallback(() => router.push("/app"), [router]);
+  const openApp = useCallback(async () => {
+    setMenuOpen(false);
+
+    if (authenticated) {
+      router.push("/app");
+      return;
+    }
+
+    if (!ready || appLaunchPending) return;
+
+    setAppLaunchPending(true);
+    try {
+      await login();
+    } catch {
+      setAppLaunchPending(false);
+    }
+  }, [appLaunchPending, authenticated, login, ready, router]);
+
+  useEffect(() => {
+    if (!appLaunchPending || !authenticated) return;
+    router.push("/app");
+  }, [appLaunchPending, authenticated, router]);
+
   const handleNav = useCallback((scrollTo: string) => {
     setMenuOpen(false);
     document.getElementById(scrollTo)?.scrollIntoView({ behavior: "smooth" });
@@ -177,10 +202,11 @@ export default function LandingPage() {
 
         <button
           onClick={openApp}
-          className="hidden rounded-full bg-[var(--ls-accent)] px-6 py-2.5 text-sm font-semibold text-black transition-transform hover:scale-[1.03] active:scale-95 md:flex"
+          disabled={!ready || appLaunchPending}
+          className="hidden rounded-full bg-[var(--ls-accent)] px-6 py-2.5 text-sm font-semibold text-black transition-transform hover:scale-[1.03] active:scale-95 disabled:opacity-60 md:flex"
           style={{ boxShadow: `0 8px 24px -8px ${ACCENT}88` }}
         >
-          Launch app
+          {appLaunchPending ? "Connecting..." : "Launch app"}
         </button>
 
         <button
@@ -217,9 +243,10 @@ export default function LandingPage() {
         </div>
         <button
           onClick={openApp}
-          className="mt-auto rounded-full bg-[var(--ls-accent)] px-7 py-3.5 text-base font-semibold text-black"
+          disabled={!ready || appLaunchPending}
+          className="mt-auto rounded-full bg-[var(--ls-accent)] px-7 py-3.5 text-base font-semibold text-black disabled:opacity-60"
         >
-          Launch app
+          {appLaunchPending ? "Connecting..." : "Launch app"}
         </button>
       </div>
 
@@ -278,10 +305,11 @@ export default function LandingPage() {
           >
             <button
               onClick={openApp}
-              className="rounded-full bg-[var(--ls-accent)] px-9 py-4 text-base font-semibold text-black transition-transform hover:scale-[1.04] active:scale-95"
+              disabled={!ready || appLaunchPending}
+              className="rounded-full bg-[var(--ls-accent)] px-9 py-4 text-base font-semibold text-black transition-transform hover:scale-[1.04] active:scale-95 disabled:opacity-60"
               style={{ boxShadow: `0 16px 44px -10px ${ACCENT}aa` }}
             >
-              Open Coston2 vault
+              {appLaunchPending ? "Connecting..." : "Open Coston2 vault"}
             </button>
             <button
               onClick={() => handleNav("mechanism")}
@@ -458,9 +486,10 @@ export default function LandingPage() {
               </p>
               <button
                 onClick={openApp}
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--ls-primary)] px-6 py-3 text-sm font-semibold text-white"
+                disabled={!ready || appLaunchPending}
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--ls-primary)] px-6 py-3 text-sm font-semibold text-white disabled:opacity-60"
               >
-                Inspect workbench <ArrowRight size={16} />
+                {appLaunchPending ? "Connecting..." : "Inspect workbench"} <ArrowRight size={16} />
               </button>
             </div>
             <div className="grid gap-3">
