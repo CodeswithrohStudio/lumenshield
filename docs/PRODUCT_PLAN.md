@@ -20,7 +20,7 @@ Why this is the right lane:
 
 Secondary bounty: **Bounty 2 - Confidential Compute Apps**
 
-Current decision: roadmap only. Do not submit to this bounty unless a real Flare Confidential Compute path is implemented. A possible privacy feature is private risk-profile scoring for shield selection, but it should not be claimed in the MVP.
+Current decision: roadmap only. Do not submit to this bounty unless a real Flare Confidential Compute path is implemented. A possible privacy feature is private risk-profile scoring for shield selection, but it should not be claimed in the MVP. See `docs/FCC_SCOPE.md`.
 
 ## Positioning
 
@@ -69,7 +69,7 @@ Panels:
 - Principal protected.
 - Yield available for shields.
 - Shield exposure chart.
-- Flare evidence panel with chain, contract, oracle, and transaction status.
+- Flare evidence panel with live `AssetManagerFXRP`, FXRP, FTSOv2, and XRP/USD read status.
 
 ### Deposit Flow
 
@@ -165,4 +165,3 @@ Not allowed unless implemented:
 - Confidential compute support.
 - Mainnet readiness.
 - Real FAssets custody or redemption beyond tested demo paths.
-

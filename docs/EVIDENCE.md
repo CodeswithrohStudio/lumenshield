@@ -9,6 +9,8 @@ Readable milestone commits:
 3. `Establish LumenShield brand system`
 4. `Add Flare vault contracts`
 5. `Port product shell to Flare`
+6. `Integrate FXRP vault with FTSO pricing`
+7. `Surface live Flare FAssets data`
 
 ## Flare Requirements Mapping
 
@@ -18,10 +20,12 @@ Status: primary submission path.
 
 Evidence:
 
-- Product is framed around FXRP/FAssets as the main user-facing asset path.
+- Product and contracts are framed around FXRP/FAssets as the main user-facing asset path.
 - Coston2 constants are in `src/lib/flare.ts`.
-- Dashboard and evidence pages surface Coston2, chain ID `114`, FXRP/FAssets, FTSOv2, and FDC boundaries.
-- Solidity vault enforces principal/yield separation.
+- Dashboard reads public Coston2 data through `src/lib/flareLive.ts`.
+- Live read evidence includes `AssetManagerFXRP`, FXRP token address, FXRP lot size, `FtsoV2`, and XRP/USD.
+- Solidity vault enforces principal/yield separation for an FXRP/FAsset-style ERC-20.
+- `FlareFtsoPriceOracle` resolves `FtsoV2` through Flare Contract Registry.
 
 ### Confidential Compute Apps
 
@@ -31,6 +35,7 @@ Reason:
 
 - No Flare Confidential Compute code has been implemented.
 - A future private risk-profile or private strategy-selection flow could fit, but submitting to this bounty now would overclaim.
+- See `docs/FCC_SCOPE.md`.
 
 ## Contract Evidence
 
@@ -39,24 +44,25 @@ File: `contracts/LumenShieldVault.sol`
 Core invariant:
 
 - `principalBalance[user]` is separate from `yieldBudget[user]`.
-- `openShield` subtracts only from `yieldBudget`.
+- `openShield` reads a configured FTSO adapter and subtracts only from `yieldBudget`.
 - `settleShield` returns or consumes shield stake and never touches `principalBalance`.
 - `withdrawPrincipal` uses only `principalBalance`.
 
 Tests:
 
-- `testDepositTracksPrincipalOnly`
-- `testAdminFundedYieldCredit`
-- `testSimulatedYieldAccrual`
-- `testOpenShieldConsumesYieldBudgetNeverPrincipal`
+- `testDepositTracksFAssetPrincipalOnly`
+- `testAdminFundedYieldCreditUsesSameAsset`
+- `testSimulatedYieldAccrualIsUnfundedDemoState`
+- `testOpenShieldConsumesYieldBudgetAndRecordsFtsoEntry`
 - `testCannotOpenShieldFromPrincipal`
+- `testCannotOpenShieldWithStalePrice`
 - `testSettleLosingShieldAndWithdrawPrincipalAfterLoss`
 
 Latest result:
 
 ```text
 forge test
-6 passed; 0 failed; 0 skipped
+7 passed; 0 failed; 0 skipped
 ```
 
 Deployment workflow:
@@ -74,6 +80,21 @@ Routes:
 - `/app/shields`: yield-only shield products
 - `/app/badges`: judge evidence page
 - `/app/leaderboard`: judging/readiness board
+
+Live Coston2 read result captured locally:
+
+```json
+{
+  "block": "34030791",
+  "assetManager": "0xc1Ca88b937d0b528842F95d5731ffB586f4fbDFA",
+  "fxrp": "0x0b6A3645c240605887a5532109323A3E12273dc7",
+  "lotSizeFXRP": "10",
+  "assetDecimals": "6",
+  "ftso": "0xC4e9c78EA53db782E28f28Fdf80BaF59336B304d",
+  "xrpUsd": "1.010483",
+  "priceTimestamp": "1786670203"
+}
+```
 
 Latest result:
 
@@ -109,11 +130,10 @@ Motion audit:
 ## Known Gaps
 
 - No deployed Coston2 contract address yet.
-- No live FXRP ERC-20 deposit adapter yet.
-- No live FTSOv2 contract read yet.
+- No deployed Coston2 LumenShield vault address yet.
 - No live FDC attestation verification yet.
 - No hosted demo URL yet.
-- Dependency audit still reports inherited high-severity findings.
+- Dependency audit currently reports inherited low, high, and critical findings after adding Flare/viem dependencies.
 
 ## Verification Checklist
 
@@ -125,7 +145,8 @@ Use this checklist before final submission wording is locked.
 - [x] `npm run lint` completes cleanly.
 - [x] `npm run build` completes cleanly.
 - [x] README states current implementation boundaries.
-- [x] Evidence docs avoid live FTSO, FDC, or deployed-contract claims without proof.
+- [x] App performs live Coston2 FAssets and FTSOv2 reads.
+- [x] Evidence docs avoid live FDC, FCC, or deployed-vault claims without proof.
 
 ### Coston2 Deployment Checks
 

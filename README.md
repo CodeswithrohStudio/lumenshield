@@ -39,22 +39,24 @@ That lineage is intentional and visible in the commit history. The hackathon wor
 - LumenShield brand, product plan, and Tastemaker style lock
 - Flare/Coston2 landing and dashboard
 - Judge-facing evidence and readiness pages
-- Foundry Solidity vault module
+- Foundry Solidity FXRP vault module
 - Principal/yield separation tests
 - Coston2 network configuration constants
-- FAssets/FXRP, FTSOv2, and FDC integration boundaries documented honestly
+- Live Coston2 FAssets and FTSOv2 read path in the dashboard
+- FDC and FCC integration boundaries documented honestly
 
 ## Current Implementation
 
-The Solidity MVP is intentionally focused on the core invariant:
+The Solidity MVP is intentionally focused on the core invariant and Flare asset path:
 
-- Deposits increase `principalBalance`
-- Funded or simulated yield increases `yieldBudget`
+- Deposits custody the configured FXRP/FAsset ERC-20 and increase `principalBalance`
+- Funded or simulated yield increases `yieldBudget` in the same asset units
 - `openShield` can spend only `yieldBudget`
+- `openShield` reads an FTSOv2-compatible price adapter and rejects stale prices
 - `settleShield` cannot reduce principal
 - Users can withdraw principal after a losing shield
 
-The app currently runs as a Coston2-oriented demo shell. It does not claim mainnet readiness, real yield generation, or live FDC proof verification yet.
+The app currently performs live read-only Coston2 calls for `AssetManagerFXRP`, the FXRP token address, FXRP lot size, `FtsoV2`, and the XRP/USD feed. It does not claim mainnet readiness, real yield generation, live FDC proof verification, or live FCC private compute.
 
 ## Commands
 
@@ -80,9 +82,10 @@ Current deployment status: this repo does not yet contain evidence of a live Cos
 
 Latest local verification:
 
-- `forge test`: 6 passed, 0 failed
+- `forge test`: 7 passed, 0 failed
 - `npm run lint`: clean
 - `npm run build`: clean
+- Live Coston2 read: AssetManagerFXRP, FXRP, lot size, FtsoV2, and XRP/USD returned successfully
 - Tastemaker anti-slop scan: passed
 - Tastemaker motion audit: no high findings; medium notes remain for intentional marketing-duration motion and scanner false positives
 
@@ -100,7 +103,7 @@ LumenShield does not claim:
 - live FDC proof verification
 - real production yield generation
 
-The current claim is narrower: a Coston2-oriented prototype and Solidity proof that principal and yield budgets are separated, with the product path designed around FXRP/FAssets, FTSOv2 valuation, and future FDC proof flows.
+The current claim is narrower: a Coston2-oriented prototype and Solidity proof that FXRP/FAsset principal and yield budgets are separated, with live read-only FAssets and FTSOv2 data in the app, plus future FDC/FCC proof flows.
 
 ## Structure
 
@@ -117,10 +120,12 @@ docs/
   SUBMISSION_STRATEGY.md
   CONTRACTS.md
   EVIDENCE.md
+  FCC_SCOPE.md
 src/
   app/
   components/
   lib/flare.ts
+  lib/flareLive.ts
 ```
 
 ## License

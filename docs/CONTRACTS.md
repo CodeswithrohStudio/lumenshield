@@ -1,33 +1,60 @@
 # LumenShield Contracts
 
-This Foundry module is a minimal Solidity proof for the Flare/Coston2 version of LumenShield.
+This Foundry module is the Flare/Coston2 technical core for LumenShield.
 
 ## Vault
 
 `contracts/LumenShieldVault.sol` tracks:
 
-- `principalBalance[user]`: native Coston2 FLR-style deposits that must not be spent on shields.
+- `asset`: the configured FXRP/FAsset-style ERC-20 used for principal and yield accounting.
+- `principalBalance[user]`: deposited asset principal that must not be spent on shields.
 - `yieldBudget[user]`: earned yield available to fund shield positions.
 - `totalYieldEarned[user]`: cumulative yield credited for reporting.
-- `shieldPositions[id]`: yield-funded shield stakes and settlement state.
+- `shieldPositions[id]`: yield-funded shield stakes, entry FTSO feed data, PnL, and settlement state.
 
-Opening a shield checks `yieldBudget` and subtracts only from that budget. Principal is held in separate accounting and remains withdrawable after a shield loses.
+Opening a shield checks a configured `IShieldPriceOracle`, stores the entry price, then subtracts only from `yieldBudget`. Principal is held in separate accounting and remains withdrawable after a shield loses.
 
-## Integration Boundaries
+## Flare Adapter
 
-The contract includes placeholder interfaces for:
+`contracts/FlareFtsoPriceOracle.sol` resolves `FtsoV2` through Flare's cross-network `FlareContractRegistry` at:
 
-- `IFlarePriceOracle`: a future adapter to Flare FTSO or another approved price feed.
-- `IFAssetYieldSource`: a future adapter for FAssets or another real yield source.
+```text
+0xaD67FE66660Fb8dFE9d6b1b4240d8650e30F6019
+```
 
-These interfaces are intentionally not wired to mocked production behavior. In this MVP, yield can be credited by the owner with funded native value via `creditYield`, or simulated on testnet via `accrueSimulatedYield`. Production deployment should replace the admin/simulation path with audited adapters and explicit Coston2/mainnet addresses.
+The adapter exposes the minimal `latestPrice(bytes21 feedId)` surface that the vault needs. The current deploy script configures the vault to use this adapter and the documented Coston2 FXRP address:
+
+```text
+0x0b6A3645c240605887a5532109323A3E12273dc7
+```
+
+## Yield Boundary
+
+`creditYield(user, amount)` is an owner-gated funded yield credit. It transfers the same asset into the vault before increasing `yieldBudget`.
+
+`accrueSimulatedYield(user, amount)` is explicitly demo-only and unfunded. It exists for testnet storytelling and must not be described as production yield.
 
 ## Tests
 
-Focused Foundry tests cover deposit accounting, funded admin yield credit, simulated yield accrual, opening shields from yield only, failed attempts to spend principal on shields, losing settlement, and principal withdrawal after loss.
+Focused Foundry tests cover:
+
+- FXRP-style ERC-20 principal deposits.
+- Funded yield credits in the same asset.
+- Simulated yield as separate demo state.
+- FTSO entry price capture when opening a shield.
+- Stale price rejection.
+- Failed attempts to spend principal on shields.
+- Losing settlement followed by full principal withdrawal.
+
+Latest result:
+
+```text
+forge test
+7 passed; 0 failed; 0 skipped
+```
 
 ## Coston2 Deployment
 
-Deployment is not yet evidenced in this repository. Use `docs/COSTON2_DEPLOYMENT.md` for the Coston2 runbook and only update submission materials with a live address after the deployment transaction, explorer links, and smoke checks are recorded.
+Deployment is prepared but not yet evidenced in this repository because no funded `DEPLOYER_PRIVATE_KEY` is available in the current shell.
 
-The current recommended command path is `forge create contracts/LumenShieldVault.sol:LumenShieldVault` with constructor argument `initialOwner`. The existing `script/DeployLumenShieldVault.s.sol` is a helper deployer contract, not a broadcast-ready Foundry `Script`.
+Use `docs/COSTON2_DEPLOYMENT.md` for the broadcast command and only update submission materials with a live address after the deployment transaction, explorer links, and smoke checks are recorded.

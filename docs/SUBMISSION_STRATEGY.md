@@ -29,22 +29,23 @@ Crypto holders who want upside exposure through DeFi but are unwilling to risk t
 - Flare/Coston2 app shell.
 - Solidity contracts.
 - FXRP/FAsset-centered product model.
-- Flare evidence panel.
+- Flare evidence panel with live Coston2 reads.
 - Coston2 deployment workflow.
-- FTSO/FDC integration boundaries documented honestly.
+- FTSOv2 adapter and dashboard read path.
+- FDC/FCC integration boundaries documented honestly.
 
 Not yet evidenced:
 
 - Live Coston2 contract deployment.
-- Live FTSOv2 read.
 - Live FDC attestation verification.
+- Live FCC private compute.
 
 ## Judge Path
 
 1. Read README.
 2. Open the hosted demo or run locally.
-3. Connect wallet or use demo mode.
-4. Review dashboard evidence panel.
+3. Review dashboard evidence panel and live Coston2 reads.
+4. Inspect the FXRP vault and FTSO adapter.
 5. Inspect contracts and tests.
 6. Review `docs/COSTON2_DEPLOYMENT.md`.
 7. Verify Coston2 deployment details only if address and transaction evidence have been added.
@@ -57,7 +58,7 @@ Most DeFi products ask users to accept principal risk. LumenShield makes the ris
 
 - Production principal protection requires robust yield sources, audits, and risk controls.
 - A hackathon demo may simulate yield accrual.
-- FTSO/FDC integration must be accurately represented based on what is actually implemented.
+- FTSOv2 read-only integration is implemented, while FDC and FCC must be represented as roadmap unless implemented later.
 - Any deployment on Coston2 is testnet evidence, not production readiness.
 
 ## Final Copy Guardrails
@@ -65,14 +66,15 @@ Most DeFi products ask users to accept principal risk. LumenShield makes the ris
 Use these phrases until deployment evidence exists:
 
 - "Coston2-oriented prototype"
-- "Coston2-ready vault module"
+- "Coston2-ready FXRP vault module"
 - "deployment workflow included"
-- "FTSOv2 and FDC integration boundaries documented"
+- "live read-only FAssets and FTSOv2 data"
+- "FDC and FCC integration boundaries documented"
 
 Avoid these phrases until actual evidence exists:
 
 - "live Coston2 deployment"
 - "deployed contract"
-- "uses live FTSO prices"
 - "verifies FDC attestations"
+- "built with FCC"
 - "production-ready principal protection"
