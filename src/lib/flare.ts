@@ -3,8 +3,13 @@ export const COSTON2 = {
   chainId: 114,
   rpcUrl: "https://coston2-api.flare.network/ext/C/rpc",
   explorerUrl: "https://coston2-explorer.flare.network",
+  systemsExplorerUrl: "https://coston2-systems-explorer.flare.network",
   nativeCurrency: "C2FLR",
 };
+
+export const FLARE_CONTRACT_REGISTRY = "0xaD67FE66660Fb8dFE9d6b1b4240d8650e30F6019";
+export const COSTON2_FXRP_ADDRESS = "0x0b6A3645c240605887a5532109323A3E12273dc7";
+export const XRP_USD_FEED_ID = "0x015852502f55534400000000000000000000000000";
 
 export const DEMO_WALLET = "0x8f2A1a0F0f7f84680f2D7Db84b9965dD4ed1f7E1";
 

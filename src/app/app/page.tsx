@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Activity,
   ArrowUpRight,
@@ -18,6 +16,7 @@ import {
   explorerAddress,
   truncateAddress,
 } from "@/lib/flare";
+import { getFlareLiveSnapshot } from "@/lib/flareLive";
 
 const AUDIT_ROWS = [
   ["Principal accounting", "100% separated", "contract invariant"],
@@ -26,7 +25,11 @@ const AUDIT_ROWS = [
   ["FCC claim", "Not claimed", "roadmap only"],
 ];
 
-export default function DashboardPage() {
+export const dynamic = "force-dynamic";
+
+export default async function DashboardPage() {
+  const live = await getFlareLiveSnapshot();
+
   return (
     <main className="min-h-dvh px-5 py-6 text-[var(--ls-text)] lg:px-8">
       <header className="mb-8 flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
@@ -39,8 +42,8 @@ export default function DashboardPage() {
             FXRP principal protected vault
           </h1>
           <p className="mt-3 max-w-2xl text-[var(--ls-muted)]">
-            Demo-mode dashboard showing the target Flare path: Coston2 network,
-            FXRP principal, yield-only shields, and judge-readable evidence.
+            Coston2 dashboard showing FXRP/FAssets discovery, FTSOv2 pricing,
+            yield-only shields, and judge-readable evidence.
           </p>
         </div>
         <a
@@ -78,8 +81,39 @@ export default function DashboardPage() {
           icon={DatabaseZap}
           label="Network"
           value="Coston2"
-          detail={`chainId ${COSTON2.chainId} · ${COSTON2.nativeCurrency}`}
+          detail={
+            live.ok && live.blockNumber
+              ? `live block ${Number(live.blockNumber).toLocaleString()}`
+              : `chainId ${COSTON2.chainId} · ${COSTON2.nativeCurrency}`
+          }
         />
+      </section>
+
+      <section className="mt-6 rounded-lg border border-white/10 bg-[var(--ls-surface)] p-6">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start">
+          <div>
+            <h2 className="font-unbounded text-xl font-semibold">Live Flare reads</h2>
+            <p className="mt-2 max-w-2xl text-sm text-[var(--ls-muted)]">
+              Public Coston2 reads through Flare Contract Registry, FAssets AssetManagerFXRP,
+              and FTSOv2. These are read-only checks, separate from the vault deployment.
+            </p>
+          </div>
+          <span className="rounded-full bg-[rgba(67,226,152,0.10)] px-3 py-1 text-xs font-semibold text-[#43e298]">
+            {live.ok ? "Coston2 live" : "RPC fallback"}
+          </span>
+        </div>
+        {live.ok ? (
+          <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            <LiveReadCard label="FXRP token" value={live.fxrpAddress ?? "Unavailable"} />
+            <LiveReadCard label="AssetManagerFXRP" value={live.assetManagerFXRP ?? "Unavailable"} />
+            <LiveReadCard label="FXRP lot size" value={`${live.lotSizeFXRP ?? "Unknown"} FXRP`} />
+            <LiveReadCard label="XRP/USD FTSOv2" value={`$${live.xrpUsd ?? "Unknown"}`} />
+          </div>
+        ) : (
+          <p className="mt-5 rounded-md border border-white/10 bg-black/20 p-4 text-sm text-[var(--ls-muted)]">
+            Live Coston2 read failed during render: {live.error}
+          </p>
+        )}
       </section>
 
       <section className="mt-6 grid gap-6 xl:grid-cols-[1.25fr_0.75fr]">
@@ -99,7 +133,7 @@ export default function DashboardPage() {
             {[
               ["Principal lane", "1000 FXRP", "withdrawable accounting base"],
               ["Yield lane", "12.84 FXRP", "available shield budget"],
-              ["Signal lane", "XRP/USD", "FTSO-ready valuation"],
+              ["Signal lane", live.ok && live.xrpUsd ? `$${live.xrpUsd}` : "XRP/USD", "FTSOv2 valuation"],
             ].map(([title, value, detail]) => (
               <div key={title} className="rounded-md border border-white/10 bg-black/20 p-5">
                 <p className="text-sm text-[var(--ls-muted)]">{title}</p>
@@ -166,6 +200,17 @@ export default function DashboardPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+function LiveReadCard({ label, value }: { label: string; value: string }) {
+  const displayValue = value.startsWith("0x") ? truncateAddress(value) : value;
+
+  return (
+    <div className="rounded-md border border-white/10 bg-black/20 p-4">
+      <p className="text-xs uppercase tracking-[0.18em] text-white/35">{label}</p>
+      <p className="mt-3 break-words font-mono text-sm text-white/82">{displayValue}</p>
+    </div>
   );
 }
 
